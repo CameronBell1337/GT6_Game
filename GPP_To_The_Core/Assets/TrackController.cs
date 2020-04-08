@@ -12,10 +12,8 @@ public class TrackController : MonoBehaviour
     public float minecartMoveSpeed;
 
     VertexPath path;
-    public EndOfPathInstruction endInstruction = EndOfPathInstruction.Stop;
 
     public bool active = false;
-    public bool playerInRange = false;
 
     int direction = 0;
     float distanceTravelled = 0;
@@ -49,9 +47,26 @@ public class TrackController : MonoBehaviour
 
     private void MoveMinecart()
     {
-        minecart.position = path.GetPointAtDistance(distanceTravelled, endInstruction);
+        minecart.position = path.GetPointAtDistance(distanceTravelled);
         Vector3 rotation = path.GetRotationAtDistance(distanceTravelled).eulerAngles;
         rotation.z = 0;
         minecart.rotation = Quaternion.Euler(rotation);
+
+        if (direction > 0)
+        {
+            if (Vector3.Distance(path.GetPointAtDistance(distanceTravelled), path.GetPointAtDistance(path.length - 0.5f)) < 0.5f)
+            {
+                active = false;
+                direction *= -1;
+            }
+        }
+        else
+        {
+            if (Vector3.Distance(path.GetPointAtDistance(distanceTravelled), path.GetPointAtDistance(0)) < 0.5f)
+            {
+                active = false;
+                direction *= -1;
+            }
+        }
     }
 }
