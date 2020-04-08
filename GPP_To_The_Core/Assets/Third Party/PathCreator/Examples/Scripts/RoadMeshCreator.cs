@@ -124,6 +124,7 @@ namespace PathCreation.Examples {
                 meshHolder = new GameObject ("Road Mesh Holder");
             }
 
+            meshHolder.transform.parent = transform;
             meshHolder.transform.rotation = Quaternion.identity;
             meshHolder.transform.position = Vector3.zero;
             meshHolder.transform.localScale = Vector3.one;
