@@ -15,7 +15,6 @@ public class TrackController : MonoBehaviour
     public EndOfPathInstruction endInstruction = EndOfPathInstruction.Stop;
 
     public bool active = false;
-    [HideInInspector]
     public bool playerInRange = false;
 
     int direction = 0;
