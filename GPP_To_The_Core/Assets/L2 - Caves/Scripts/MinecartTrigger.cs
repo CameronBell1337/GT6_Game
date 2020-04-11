@@ -53,6 +53,10 @@ public class MinecartTrigger : MonoBehaviour
                 trackController.active = true;
                 player.transform.position = playerPositionTarget.position;
                 player.transform.parent = transform;
+
+                Vector3 rotation = Vector3.zero;
+                rotation.y = trackController.direction < 0 ? 180 : 0;
+                player.transform.localRotation = Quaternion.Euler(rotation);
             }
             else
             {
