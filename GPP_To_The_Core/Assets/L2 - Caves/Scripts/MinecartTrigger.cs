@@ -5,15 +5,18 @@ using PathCreation;
 
 public class MinecartTrigger : MonoBehaviour
 {
+    [Header("Player Position References")]
     public Transform playerPositionTarget;
     public Transform playerExitPosition;
     
     bool playerInRange = false;
 
-    TrackController trackController;
+    [HideInInspector]
+    public TrackController trackController;
     GameObject player;
     Animator minecartAnimator;
 
+    [Header("Tilting")]
     public float tiltSpeed = 3;
     Vector3 maxTiltPosition = new Vector3(0, 0.15f, 0);
     Vector3 maxTiltRotation = new Vector3(0, 0, 20);
@@ -62,16 +65,19 @@ public class MinecartTrigger : MonoBehaviour
         {
             trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
             trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, maxTiltRotation * trackController.direction, tiltSpeed * Time.deltaTime);
+            trackController.tiltDirection = trackController.direction;
         }
         else if (Input.GetAxis("Horizontal") > 0.1f)
         {
             trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
             trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, -maxTiltRotation * trackController.direction, tiltSpeed * Time.deltaTime);
+            trackController.tiltDirection = -trackController.direction;
         }
         else
         {
             trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
             trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
+            trackController.tiltDirection = 0;
         }
     }
 }

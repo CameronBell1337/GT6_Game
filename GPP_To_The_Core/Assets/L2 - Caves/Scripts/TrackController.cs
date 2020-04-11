@@ -5,44 +5,71 @@ using PathCreation;
 
 public class TrackController : MonoBehaviour
 {
+    [Header("Track Spline")]
     public PathCreator pathCreator;
+    public bool startMinecartAtBeginning = true;
+
+    [Header("Minecart")]
     public Transform minecart;
+    public float minecartMoveSpeed = 15;
 
-    public bool startMinecartAtBeginning;
-    public float minecartMoveSpeed;
+    [Header("Spline Start Junction")]
+    public TrackController startSpline;
+    [Range(-1, 1)]
+    public int startSplineDirection = 1;
 
-    VertexPath path;
+    [Header("Spline End Junction")]
+    public TrackController endSpline;
+    [Range(-1, 1)]
+    public int endSplineDirection = 1;
 
-    public bool active = false;
+    [HideInInspector]
+    public VertexPath path;
 
     [HideInInspector]
     public int direction = 0;
-    float distanceTravelled = 0;
+    [HideInInspector]
+    public float distanceTravelled = 0;
 
+    [HideInInspector]
+    public bool active = false;
+
+    [HideInInspector]
+    public int tiltDirection = 0;
+    [HideInInspector]
     public Vector3 tiltPositionOffset = Vector3.zero;
+    [HideInInspector]
     public Vector3 tiltRotationOffset = Vector3.zero;
 
     private void Awake()
     {
+        if (pathCreator == null)
+        {
+            pathCreator = GetComponent<PathCreator>();
+        }
+
         path = pathCreator.path;
 
-        if (startMinecartAtBeginning)
+        if (minecart != null)
         {
-            distanceTravelled = 0;
-            direction = 1;
-        }
-        else
-        {
-            distanceTravelled = path.length - 0.5f;
-            direction = -1;
-        }
+            if (startMinecartAtBeginning)
+            {
+                distanceTravelled = 0;
+                direction = 1;
+            }
+            else
+            {
+                distanceTravelled = path.length - 0.5f;
+                direction = -1;
+            }
 
-        MoveMinecart();
+            MoveMinecart();
+        }
     }
 
     private void Update()
     {
-        if (active)
+        if (minecart != null && active)
         {
             distanceTravelled += Time.deltaTime * minecartMoveSpeed * direction;
             MoveMinecart();
@@ -73,14 +100,42 @@ public class TrackController : MonoBehaviour
         {
             if (Vector3.Distance(path.GetPointAtDistance(distanceTravelled), path.GetPointAtDistance(path.length - 0.5f)) < 0.5f)
             {
-                StopMinecart();
+                if (endSpline != null)
+                {
+                    endSpline.direction = endSplineDirection;
+                    endSpline.distanceTravelled = endSpline.path.GetClosestDistanceAlongPath(minecart.position);
+                    minecart.GetComponent<MinecartTrigger>().trackController = endSpline;
+                    minecart.parent = endSpline.gameObject.transform;
+                    endSpline.minecart = minecart;
+                    endSpline.active = true;
+                    minecart = null;
+                    active = false;
+                }
+                else
+                {
+                    StopMinecart();
+                }
             }
         }
         else
         {
             if (Vector3.Distance(path.GetPointAtDistance(distanceTravelled), path.GetPointAtDistance(0)) < 0.5f)
             {
-                StopMinecart();
+                if (startSpline != null)
+                {
+                    startSpline.direction = startSplineDirection;
+                    startSpline.distanceTravelled = startSpline.path.GetClosestDistanceAlongPath(minecart.position);
+                    minecart.GetComponent<MinecartTrigger>().trackController = startSpline;
+                    minecart.parent = startSpline.gameObject.transform;
+                    startSpline.minecart = minecart;
+                    startSpline.active = true;
+                    minecart = null;
+                    active = false;
+                }
+                else
+                {
+                    StopMinecart();
+                }
             }
         }
     }
