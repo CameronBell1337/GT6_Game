@@ -18,12 +18,18 @@ public class JunctionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        inRange = true;
+        if (other.tag.Equals("Player"))
+        {
+            inRange = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        inRange = false;
+        if (other.tag.Equals("Player"))
+        {
+            inRange = false;
+        }
     }
 
     private void Update()
@@ -43,6 +49,4 @@ public class JunctionController : MonoBehaviour
             mainSpline.active = false;
         }
     }
-
-
 }
