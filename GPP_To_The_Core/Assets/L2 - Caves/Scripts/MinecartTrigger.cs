@@ -53,10 +53,6 @@ public class MinecartTrigger : MonoBehaviour
                 trackController.active = true;
                 player.transform.position = playerPositionTarget.position;
                 player.transform.parent = transform;
-
-                Vector3 rotation = Vector3.zero;
-                rotation.y = trackController.direction < 0 ? 180 : 0;
-                player.transform.localRotation = Quaternion.Euler(rotation);
             }
             else
             {
@@ -64,6 +60,10 @@ public class MinecartTrigger : MonoBehaviour
                 player.transform.position = playerExitPosition.position;
             }
         }
+
+        Vector3 rotation = Vector3.zero;
+        rotation.y = trackController.direction < 0 ? 180 : 0;
+        player.transform.localRotation = Quaternion.Euler(rotation);
 
         if (Input.GetAxis("Horizontal") < -0.1f)
         {

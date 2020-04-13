@@ -41,6 +41,8 @@ public class TrackController : MonoBehaviour
     [HideInInspector]
     public Vector3 tiltRotationOffset = Vector3.zero;
 
+    GameObject player;
+
     private void Awake()
     {
         if (pathCreator == null)
@@ -65,6 +67,8 @@ public class TrackController : MonoBehaviour
 
             MoveMinecart();
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -73,6 +77,10 @@ public class TrackController : MonoBehaviour
         {
             distanceTravelled += Time.deltaTime * minecartMoveSpeed * direction;
             MoveMinecart();
+
+            Vector3 rotation = Vector3.zero;
+            rotation.y = direction < 0 ? 180 : 0;
+            player.transform.localRotation = Quaternion.Euler(rotation);
         }
     }
 
