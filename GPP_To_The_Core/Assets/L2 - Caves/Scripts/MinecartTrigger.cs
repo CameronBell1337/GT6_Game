@@ -51,19 +51,17 @@ public class MinecartTrigger : MonoBehaviour
             if (player.transform.parent == null)
             {
                 trackController.active = true;
+                trackController.DisableColliders();
                 player.transform.position = playerPositionTarget.position;
                 player.transform.parent = transform;
             }
             else
             {
+                trackController.EnableColliders();
                 player.transform.parent = null;
                 player.transform.position = playerExitPosition.position;
             }
         }
-
-        Vector3 rotation = Vector3.zero;
-        rotation.y = trackController.direction < 0 ? 180 : 0;
-        player.transform.localRotation = Quaternion.Euler(rotation);
 
         if (Input.GetAxis("Horizontal") < -0.1f)
         {

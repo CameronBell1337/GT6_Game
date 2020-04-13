@@ -9,6 +9,9 @@ public class TrackController : MonoBehaviour
     public PathCreator pathCreator;
     public bool startMinecartAtBeginning = true;
 
+    [Header("Track Player Colliders")]
+    public GameObject[] colliders;
+
     [Header("Minecart")]
     public Transform minecart;
     public float minecartMoveSpeed = 15;
@@ -108,10 +111,12 @@ public class TrackController : MonoBehaviour
         {
             if (Vector3.Distance(path.GetPointAtDistance(distanceTravelled), path.GetPointAtDistance(path.length - 0.5f)) < 0.5f)
             {
+                EnableColliders();
                 if (endSpline != null)
                 {
                     endSpline.direction = endSplineDirection;
                     endSpline.distanceTravelled = endSpline.path.GetClosestDistanceAlongPath(minecart.position);
+                    endSpline.DisableColliders();
                     minecart.GetComponent<MinecartTrigger>().trackController = endSpline;
                     minecart.parent = endSpline.gameObject.transform;
                     endSpline.minecart = minecart;
@@ -129,22 +134,41 @@ public class TrackController : MonoBehaviour
         {
             if (Vector3.Distance(path.GetPointAtDistance(distanceTravelled), path.GetPointAtDistance(0)) < 0.5f)
             {
+                EnableColliders();
                 if (startSpline != null)
                 {
                     startSpline.direction = startSplineDirection;
                     startSpline.distanceTravelled = startSpline.path.GetClosestDistanceAlongPath(minecart.position);
+                    endSpline.DisableColliders();
                     minecart.GetComponent<MinecartTrigger>().trackController = startSpline;
                     minecart.parent = startSpline.gameObject.transform;
                     startSpline.minecart = minecart;
                     startSpline.active = true;
                     minecart = null;
                     active = false;
+
                 }
                 else
                 {
                     StopMinecart();
                 }
             }
+        }
+    }
+
+    public void DisableColliders()
+    {
+        foreach (GameObject obj in colliders)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public void EnableColliders()
+    {
+        foreach (GameObject obj in colliders)
+        {
+            obj.SetActive(true);
         }
     }
 }

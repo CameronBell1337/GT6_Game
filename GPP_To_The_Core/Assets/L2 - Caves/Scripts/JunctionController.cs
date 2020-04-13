@@ -41,8 +41,12 @@ public class JunctionController : MonoBehaviour
         {
             splitSpline.direction = splitMovementDirection;
             splitSpline.distanceTravelled = splitSpline.path.GetClosestDistanceAlongPath(mainSpline.minecart.position);
+            splitSpline.DisableColliders();
+
             mainSpline.minecart.GetComponent<MinecartTrigger>().trackController = splitSpline;
             mainSpline.minecart.parent = splitSpline.gameObject.transform;
+            mainSpline.EnableColliders();
+
             splitSpline.minecart = mainSpline.minecart;
             splitSpline.active = true;
             mainSpline.minecart = null;
