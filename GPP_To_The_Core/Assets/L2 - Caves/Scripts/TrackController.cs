@@ -139,7 +139,7 @@ public class TrackController : MonoBehaviour
                 {
                     startSpline.direction = startSplineDirection;
                     startSpline.distanceTravelled = startSpline.path.GetClosestDistanceAlongPath(minecart.position);
-                    endSpline.DisableColliders();
+                    startSpline.DisableColliders();
                     minecart.GetComponent<MinecartTrigger>().trackController = startSpline;
                     minecart.parent = startSpline.gameObject.transform;
                     startSpline.minecart = minecart;

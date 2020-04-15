@@ -138,6 +138,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPositionTarget: {fileID: 408924556}
   playerExitPosition: {fileID: 8748052779281002279}
+  getInUI: {fileID: 0}
+  getOutUI: {fileID: 0}
+  trackController: {fileID: 0}
+  tiltSpeed: 3
 --- !u!1 &1650155768433588
 GameObject:
   m_ObjectHideFlags: 0

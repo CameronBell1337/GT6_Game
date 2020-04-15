@@ -8,7 +8,11 @@ public class MinecartTrigger : MonoBehaviour
     [Header("Player Position References")]
     public Transform playerPositionTarget;
     public Transform playerExitPosition;
-    
+
+    [Header("UI Objects")]
+    public CanvasGroup getInUI;
+    public CanvasGroup getOutUI;
+
     bool playerInRange = false;
 
     [HideInInspector]
@@ -26,6 +30,9 @@ public class MinecartTrigger : MonoBehaviour
         trackController = GetComponentInParent<TrackController>();
         player = GameObject.FindGameObjectWithTag("Player");
         minecartAnimator = GetComponent<Animator>();
+
+        getInUI.alpha = 0;
+        getOutUI.alpha = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,6 +53,8 @@ public class MinecartTrigger : MonoBehaviour
 
     private void Update()
     {
+        HandleUI();
+
         if (Input.GetButtonDown("AttackL") && playerInRange && !trackController.active)
         {
             if (player.transform.parent == null)
@@ -81,5 +90,56 @@ public class MinecartTrigger : MonoBehaviour
             trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
             trackController.tiltDirection = 0;
         }
+    }
+
+    void HandleUI()
+    {
+        if (playerInRange && !trackController.active)
+        {
+            // NOT IN MINECART
+            if (player.transform.parent == null)
+            {
+                UIFadeIn(getInUI);
+                UIFadeOut(getOutUI);
+                return;
+            }
+            // IN MINECART
+            else
+            {
+                UIFadeIn(getOutUI);
+                UIFadeOut(getInUI);
+                return;
+            }
+        }
+
+        if (trackController.active)
+        {
+            UIFadeOut(getInUI);
+            UIFadeOut(getOutUI);
+        }
+    }
+
+    void UIFadeIn(CanvasGroup ui)
+    {
+        float new_alpha = Mathf.Lerp(ui.alpha, 2, 2 * Time.deltaTime);
+
+        if (new_alpha > 1.95f)
+        {
+            new_alpha = 2;
+        }
+
+        ui.alpha = new_alpha;
+    }
+
+    void UIFadeOut(CanvasGroup ui)
+    {
+        float new_alpha = Mathf.Lerp(ui.alpha, 0, 2 * Time.deltaTime);
+
+        if (new_alpha > 0.05f)
+        {
+            new_alpha = 0;
+        }
+
+        ui.alpha = new_alpha;
     }
 }
