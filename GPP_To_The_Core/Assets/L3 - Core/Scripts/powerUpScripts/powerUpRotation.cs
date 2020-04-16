@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class powerUpRotation : MonoBehaviour
 {
-    public float degreesPerSecond = 70.0f;
+    public Vector3 rotationAxis;
     public float amplitude = 0.5f;
     public float frequency = 1f;
 
@@ -19,8 +19,8 @@ public class powerUpRotation : MonoBehaviour
     void Update()
     {
         // Spin object around Y-Axis
-        transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
-
+        //transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
+        transform.Rotate((Time.deltaTime * rotationAxis), Space.Self);
         // Float up/down with a Sin()
         tempPos = posOffset;
         tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
