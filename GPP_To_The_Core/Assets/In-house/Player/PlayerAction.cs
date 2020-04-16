@@ -11,10 +11,8 @@ public class PlayerAction : MonoBehaviour
     private Animator anim;
     private CapsuleCollider col;
     private PlayerInput inputScript;
-    private PlayerStats stats;
     private int lastAttack;
     private Camera mainCamera;
-    private Camera panningCamera;
 
     void Start()
     {

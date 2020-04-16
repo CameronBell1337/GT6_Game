@@ -54,25 +54,24 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        rotatePlayer();
+        RotatePlayer();
 
         if (!animationOverride)
         {
-            animatePlayer();
+            AnimatePlayer();
         }
-
-        FrictionCheck();
-        jumpCheck();
-        fallCheck();
-        particleEffectsCheck();
+        
+        JumpCheck();
+        FallCheck();
+        ParticleEffectsCheck();
     }
 
     private void FixedUpdate()
     {
-        movePlayer();
+        MovePlayer();
     }
 
-    private void movePlayer()
+    private void MovePlayer()
     {
         float movementSpeed;
         movementSpeed = (baseMovementSpeed + (inputScript.inputRunSpeed * runSpeedMultiplier)) *
@@ -93,15 +92,15 @@ public class PlayerMovement : MonoBehaviour
                 hasLeftEdgeYet = false;
             }
             // Then airglide
-            airGlide();
+            AirGlide();
         }
         else
         {
-            airGlide();
+            AirGlide();
         }
     }
 
-    private void rotatePlayer()
+    private void RotatePlayer()
     {
         if (inputScript.inputMove != Vector3.zero)
         {
@@ -110,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(lastLookDirection);
     }
 
-    private void animatePlayer()
+    private void AnimatePlayer()
     {
         // Set Idle/Run animation states
         float animMovementSpeed = (baseWalkAnimSpeed * Vector3.Distance(transform.position,
@@ -127,45 +126,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FrictionCheck()
+    private void JumpCheck()
     {
-        if (isGrounded() && isTouchingNOnSides())
+        if (inputScript.inputJump && IsGrounded())
         {
-            GetComponent<Collider>().material.dynamicFriction = 0.0f;
-            GetComponent<Collider>().material.staticFriction = 0.0f;
-            GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
-        }
-        else if (isGrounded())
-        {
-            GetComponent<Collider>().material.dynamicFriction = 0.6f;
-            GetComponent<Collider>().material.staticFriction = 0.6f;
-            GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Average;
-        }
-        else
-        {
-            GetComponent<Collider>().material.dynamicFriction = 0.0f;
-            GetComponent<Collider>().material.staticFriction = 0.0f;
-            GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
-        }
-    }
+            if (IsGrounded() && IsTouchingNOnSides())
+            {
+                GetComponent<Collider>().material.dynamicFriction = 0.0f;
+                GetComponent<Collider>().material.staticFriction = 0.0f;
+                GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
+            }
 
-    private void jumpCheck()
-    {
-        if (inputScript.inputJump && isGrounded())
-        {
             rb.velocity = Vector3.zero;
+
             if (inputScript.inputRunSpeed > 0)
             {
                 rb.AddForce((inputScript.inputMove.normalized * jumpForwardRunningForce *
                              movementSpeedMultiplier) + (Vector3.up * jumpUpForce), ForceMode.Impulse);
+
                 isRunningJump = true;
             }
             else
             {
                 rb.AddForce((inputScript.inputMove.normalized * jumpForwardForce *
                              movementSpeedMultiplier) + (Vector3.up * jumpUpForce), ForceMode.Impulse);
+
                 isRunningJump = false;
             }
+
             anim.SetBool("Falling", true);
             anim.SetTrigger("Jump");
             anim.SetLayerWeight(1, 1);
@@ -173,9 +161,9 @@ public class PlayerMovement : MonoBehaviour
             jumpingPS.Play();
         }
         // Ending falling animation
-        else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Fall") && isGrounded() ||
-                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump") && isGrounded() ||
-                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump Flip") && isGrounded())
+        else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Fall") && IsGrounded() ||
+                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump") && IsGrounded() ||
+                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump Flip") && IsGrounded())
         {
             anim.SetBool("Falling", false);
             anim.SetLayerWeight(1, 0.5f);
@@ -192,15 +180,20 @@ public class PlayerMovement : MonoBehaviour
     public void Land()
     {
         anim.SetTrigger("Land");
+
+        GetComponent<Collider>().material.dynamicFriction = 0.6f;
+        GetComponent<Collider>().material.staticFriction = 0.6f;
+        GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Average;
+
         if (!landingPS.isPlaying)
         {
             landingPS.Play();
         }
     }
 
-    private void fallCheck()
+    private void FallCheck()
     {
-        if (!isGrounded() && !anim.GetBool("Falling"))
+        if (!IsGrounded() && !anim.GetBool("Falling"))
         {
             anim.SetTrigger("Drop");
             anim.SetBool("Falling", true);
@@ -210,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void particleEffectsCheck()
+    private void ParticleEffectsCheck()
     {
         if (anim.GetBool("Running") && inputScript.inputRunSpeed > 0 &&
             anim.GetCurrentAnimatorStateInfo(1).IsName("Grounded"))
@@ -229,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void airGlide()
+    private void AirGlide()
     {
         // Air glide if in air
         rb.AddForce(inputScript.inputMove.normalized * airGlideMultiplier * movementSpeedMultiplier *
@@ -270,14 +263,14 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(new Vector3(0, -gravity, 0) * Time.fixedDeltaTime);
     }
 
-    public bool isGrounded()
+    public bool IsGrounded()
     {
         Vector3 checkExtents = new Vector3(col.radius * groundCheckRadius, 0.05f, col.radius * groundCheckRadius);
         Quaternion zeroAngle = new Quaternion();
         return Physics.CheckBox(transform.position, checkExtents, zeroAngle, groundLayers);
     }
 
-    public bool isTouchingNOnSides()
+    public bool IsTouchingNOnSides()
     {
         Vector3 checkHalfExtents = new Vector3(col.radius * wallCheckRadius,
                                                col.height * wallCheckHeightPerc,

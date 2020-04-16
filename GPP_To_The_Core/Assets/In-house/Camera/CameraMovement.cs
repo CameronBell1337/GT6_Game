@@ -26,7 +26,7 @@ public class CameraMovement : MonoBehaviour
     private bool controllerAimReset;
     private bool keyboardAimReset;
 
-    enum cameraModeNames
+    enum CameraModeNames
     {
         thirdPersonFollow,
         nsewSoftLock
@@ -55,9 +55,9 @@ public class CameraMovement : MonoBehaviour
         //Switch between camera modes
         if (playerInputScript.inputSwitchCam)
         {
-            if (cameraMode == (int)cameraModeNames.thirdPersonFollow)
+            if (cameraMode == (int)CameraModeNames.thirdPersonFollow)
             {
-                cameraMode = (int)cameraModeNames.nsewSoftLock;
+                cameraMode = (int)CameraModeNames.nsewSoftLock;
                 offset = baseOffset;
 
                 // Rotate camera to lock to closest NSEW direction
@@ -99,9 +99,9 @@ public class CameraMovement : MonoBehaviour
                 // Update offset angle
                 offset = Quaternion.AngleAxis(angleToRotate, Vector3.up) * offset;
             }
-            else if (cameraMode == (int)cameraModeNames.nsewSoftLock)
+            else if (cameraMode == (int)CameraModeNames.nsewSoftLock)
             {
-                cameraMode = (int)cameraModeNames.thirdPersonFollow;
+                cameraMode = (int)CameraModeNames.thirdPersonFollow;
                 baseOffset = offset;
             }
         }
@@ -122,10 +122,10 @@ public class CameraMovement : MonoBehaviour
             switch (cameraMode)
             {
                 default:
-                case (int)cameraModeNames.thirdPersonFollow:
+                case (int)CameraModeNames.thirdPersonFollow:
                     {
                         // Detect camera collision
-                        if (detectCameraCollision())
+                        if (DetectCameraCollision())
                         {
                             Vector3 dir = ((cameraTarget.transform.position + baseOffset) - midBodyPos).normalized;
                             Vector3 paddingVec3 = dir * collisionCamPadding;
@@ -146,7 +146,7 @@ public class CameraMovement : MonoBehaviour
 
                         break;
                     }
-                case (int)cameraModeNames.nsewSoftLock:
+                case (int)CameraModeNames.nsewSoftLock:
                     {
                         // Check for let go of controller joystick && keybaord buttons before rotating again
                         if (playerInputScript.inputAim.x <= 0.75 &&
@@ -206,7 +206,7 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    bool detectCameraCollision()
+    bool DetectCameraCollision()
     {
         Vector3 midBodyPos = cameraTarget.transform.position;
         midBodyPos += new Vector3(0, cameraTarget.GetComponent<Collider>().bounds.center.y -
