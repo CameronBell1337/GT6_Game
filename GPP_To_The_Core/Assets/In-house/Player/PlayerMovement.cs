@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         
         JumpCheck();
         FallCheck();
+        FallingFrictionCheck();
         ParticleEffectsCheck();
     }
 
@@ -156,17 +157,17 @@ public class PlayerMovement : MonoBehaviour
 
             anim.SetBool("Falling", true);
             anim.SetTrigger("Jump");
-            anim.SetLayerWeight(1, 1);
+            anim.SetLayerWeight(2, 1);
             isJumping = true;
             jumpingPS.Play();
         }
         // Ending falling animation
-        else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Fall") && IsGrounded() ||
-                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump") && IsGrounded() ||
-                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump Flip") && IsGrounded())
+        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("Fall") && IsGrounded() ||
+                 anim.GetCurrentAnimatorStateInfo(2).IsName("Jump") && IsGrounded() ||
+                 anim.GetCurrentAnimatorStateInfo(2).IsName("Jump Flip") && IsGrounded())
         {
             anim.SetBool("Falling", false);
-            anim.SetLayerWeight(1, 0.5f);
+            anim.SetLayerWeight(2, 0.5f);
             rb.velocity = Vector3.zero;
             isJumping = false;
         }
@@ -197,16 +198,26 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetTrigger("Drop");
             anim.SetBool("Falling", true);
-            anim.SetLayerWeight(1, 1);
+            anim.SetLayerWeight(2, 1);
             hasLeftEdgeYet = true;
             isRunningJump = false;
+        }
+    }
+
+    private void FallingFrictionCheck()
+    {
+        if (anim.GetBool("Falling") && IsTouchingNOnSides())
+        {
+            GetComponent<Collider>().material.dynamicFriction = 0.0f;
+            GetComponent<Collider>().material.staticFriction = 0.0f;
+            GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
         }
     }
 
     private void ParticleEffectsCheck()
     {
         if (anim.GetBool("Running") && inputScript.inputRunSpeed > 0 &&
-            anim.GetCurrentAnimatorStateInfo(1).IsName("Grounded"))
+            anim.GetCurrentAnimatorStateInfo(2).IsName("Grounded"))
         {
             if (!runningDustPS.isPlaying)
             {
@@ -261,6 +272,16 @@ public class PlayerMovement : MonoBehaviour
         }
         // Increase gravity for video game feel
         rb.AddForce(new Vector3(0, -gravity, 0) * Time.fixedDeltaTime);
+    }
+
+    private void FootL()
+    {
+        // Linked to moment foot reaches ground
+    }
+
+    private void FootR()
+    {
+        // Linked to moment foot reaches ground
     }
 
     public bool IsGrounded()

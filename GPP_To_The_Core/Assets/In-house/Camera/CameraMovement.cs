@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
     public LayerMask groundLayers;
     public float collisionCamPadding;
     public float nsewModeCamSmoothing;
-    public int cameraMode;
+    public CameraModes cameraMode;
     [HideInInspector] public Vector3 baseOffset;
     [HideInInspector] public bool cameraOverride;
 
@@ -26,7 +26,7 @@ public class CameraMovement : MonoBehaviour
     private bool controllerAimReset;
     private bool keyboardAimReset;
 
-    enum CameraModeNames
+    public enum CameraModes
     {
         thirdPersonFollow,
         nsewSoftLock
@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
-        cameraMode = 0;
+        cameraMode = CameraModes.thirdPersonFollow;
         baseOffset = new Vector3(0, offsetHeight, -offsetDistance);
         cameraOverride = false;
         cameraTarget = GameObject.FindGameObjectWithTag("Player");
@@ -55,9 +55,9 @@ public class CameraMovement : MonoBehaviour
         //Switch between camera modes
         if (playerInputScript.inputSwitchCam)
         {
-            if (cameraMode == (int)CameraModeNames.thirdPersonFollow)
+            if (cameraMode == CameraModes.thirdPersonFollow)
             {
-                cameraMode = (int)CameraModeNames.nsewSoftLock;
+                cameraMode = CameraModes.nsewSoftLock;
                 offset = baseOffset;
 
                 // Rotate camera to lock to closest NSEW direction
@@ -99,9 +99,9 @@ public class CameraMovement : MonoBehaviour
                 // Update offset angle
                 offset = Quaternion.AngleAxis(angleToRotate, Vector3.up) * offset;
             }
-            else if (cameraMode == (int)CameraModeNames.nsewSoftLock)
+            else if (cameraMode == CameraModes.nsewSoftLock)
             {
-                cameraMode = (int)CameraModeNames.thirdPersonFollow;
+                cameraMode = CameraModes.thirdPersonFollow;
                 baseOffset = offset;
             }
         }
@@ -122,7 +122,7 @@ public class CameraMovement : MonoBehaviour
             switch (cameraMode)
             {
                 default:
-                case (int)CameraModeNames.thirdPersonFollow:
+                case CameraModes.thirdPersonFollow:
                     {
                         // Detect camera collision
                         if (DetectCameraCollision())
@@ -146,7 +146,7 @@ public class CameraMovement : MonoBehaviour
 
                         break;
                     }
-                case (int)CameraModeNames.nsewSoftLock:
+                case CameraModes.nsewSoftLock:
                     {
                         // Check for let go of controller joystick && keybaord buttons before rotating again
                         if (playerInputScript.inputAim.x <= 0.75 &&
