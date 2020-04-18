@@ -5,12 +5,14 @@ using UnityEngine;
 public class movingPlatforms : MonoBehaviour
 {
     public Vector3[] waypoints;
+
     public int currentWaypoint = 0;
 
     private Vector3 currentTargetWaypoint;
 
     public cameraManager platformCutscene;
     public BoxCollider triggerCol;
+    public Animator Animator;
 
     public float smoothDamping;
     public float platformSpeed;
@@ -19,11 +21,15 @@ public class movingPlatforms : MonoBehaviour
     private float delayStart;
 
     public bool autoStart;
- 
-    
+
+    Vector3 currentDest;
+
+
     void Start()
     {
         platformCutscene = FindObjectOfType<cameraManager>();
+
+        
         
         if (waypoints.Length > 0)
         {
@@ -34,7 +40,7 @@ public class movingPlatforms : MonoBehaviour
     }
 
     
-    void Update()
+    void FixedUpdate()
     {
         if (transform.position != currentTargetWaypoint)
         {
@@ -48,11 +54,12 @@ public class movingPlatforms : MonoBehaviour
 
      void MovePlatform()
     {
-        Vector3 currentDest = currentTargetWaypoint - transform.position;
+        currentDest = currentTargetWaypoint - transform.position;
         transform.position += (currentDest / currentDest.magnitude) * platformSpeed * Time.deltaTime;
 
         if(currentDest.magnitude < smoothDamping)
         {
+            
             transform.position = currentTargetWaypoint;
             delayStart = Time.time;
         }
@@ -72,18 +79,28 @@ public class movingPlatforms : MonoBehaviour
     public void NextPlatform()
     {
         currentWaypoint++;
-        if(currentWaypoint >= waypoints.Length)
+        
+        if (currentWaypoint >= waypoints.Length)
         {
+            
             currentWaypoint = 0;
         }
         currentTargetWaypoint = waypoints[currentWaypoint];
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
 
         if (other.gameObject.tag == "Player")
         {
+            if (currentDest.magnitude >= smoothDamping)
+            {
+                Animator.applyRootMotion = true;
+            }
+            else
+            {
+                Animator.applyRootMotion = false;
+            }
             other.transform.parent = transform;
             platformCutscene.isPlatformSceneActive = true;
         }
@@ -93,6 +110,7 @@ public class movingPlatforms : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            Animator.applyRootMotion = false;
             other.transform.parent = null;
             platformCutscene.isPlatformSceneActive = false;
             triggerCol.gameObject.SetActive(true);
