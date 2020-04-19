@@ -31340,6 +31340,7 @@ MonoBehaviour:
   punchChainWindowStart: 0.4
   punchChainWindowEnd: 0.7
   swordDamage: 2
+  swordAutoSheathTime: 8
   swordSwingChainWindowStart: 0.2
   swordSwingChainWindowEnd: 1
   sheathedSword: {fileID: 776263435650659119}

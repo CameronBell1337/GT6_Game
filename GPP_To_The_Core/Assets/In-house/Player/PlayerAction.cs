@@ -10,6 +10,7 @@ public class PlayerAction : MonoBehaviour
     public float punchChainWindowStart;
     public float punchChainWindowEnd;
     public float swordDamage;
+    public float swordAutoSheathTime;
     public float swordSwingChainWindowStart;
     public float swordSwingChainWindowEnd;
 
@@ -109,8 +110,17 @@ public class PlayerAction : MonoBehaviour
         if (swordSwingTimer >= swordSwingChainWindowEnd)
         {
             anim.SetBool("SwingingSword", false);
-            swordSwingTimer = 0;
             lastAttack = Attacks.noAttack;
+            swordSwingTimer = 0;
+        }
+
+        if (armedTimer >= swordAutoSheathTime)
+        {
+            lastAttack = Attacks.noAttack;
+            anim.SetBool("SwappingWeapon", true);
+
+            anim.SetTrigger("SheathSword");
+            armedTimer = 0;
         }
     }
 
@@ -188,6 +198,8 @@ public class PlayerAction : MonoBehaviour
 
     private void SwingSword()
     {
+        armedTimer = 0;
+
         switch (lastAttack)
         {
             case Attacks.noAttack:
@@ -232,6 +244,7 @@ public class PlayerAction : MonoBehaviour
     private void DoneSwappingWeapon() 
     {
         anim.SetBool("SwappingWeapon", false);
+        armedTimer = 0;
     }
 
     private void StartedPunch()
