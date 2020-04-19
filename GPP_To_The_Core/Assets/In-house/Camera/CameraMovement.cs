@@ -13,10 +13,10 @@ public class CameraMovement : MonoBehaviour
     public LayerMask groundLayers;
     public float collisionCamPadding;
     public float nsewModeCamSmoothing;
-    public CameraModes cameraMode;
     [HideInInspector] public Vector3 baseOffset;
     [HideInInspector] public bool cameraOverride;
 
+    [SerializeField] private CameraModes cameraMode;
     private GameObject cameraTarget;
     private PlayerInput playerInputScript;
     private Vector3 offset;
@@ -34,10 +34,14 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
-        cameraMode = CameraModes.thirdPersonFollow;
-        baseOffset = new Vector3(0, offsetHeight, -offsetDistance);
-        cameraOverride = false;
         cameraTarget = GameObject.FindGameObjectWithTag("Player");
+        baseOffset = new Vector3(0, offsetHeight, -offsetDistance);
+        //Vector3.RotateTowards(baseOffset, -cameraTarget.transform.forward, Time.deltaTime, 0);
+        float startingPlayerFacingAngle = Vector3.SignedAngle(Vector3.forward, cameraTarget.transform.forward, Vector3.up);
+        baseOffset = Quaternion.AngleAxis(startingPlayerFacingAngle, Vector3.up) * baseOffset;
+
+        cameraOverride = false;
+        cameraMode = CameraModes.thirdPersonFollow;
         playerInputScript = cameraTarget.GetComponent<PlayerInput>();
         offset = baseOffset;
         rotateX = 0;

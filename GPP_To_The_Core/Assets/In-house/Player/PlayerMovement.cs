@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
-        lastLookDirection = Vector3.zero;
+        lastLookDirection = transform.forward;
         runningDustPS = transform.Find("Running Dust PS").GetComponent<ParticleSystem>();
         landingPS = transform.Find("Landing PS").GetComponent<ParticleSystem>();
         jumpingPS = transform.Find("Jumping PS").GetComponent<ParticleSystem>();
