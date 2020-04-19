@@ -56031,7 +56031,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.3666667
+    m_StopTime: 1.2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -110931,15 +110931,15 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 1
   m_Events:
-  - time: 0.4682474
-    functionName: Hit
+  - time: 0
+    functionName: StartedSwordSwing
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3666667
-    functionName: DoneSwing
+  - time: 0.4682474
+    functionName: Hit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

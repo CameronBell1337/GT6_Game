@@ -7,9 +7,11 @@ public class PlayerAction : MonoBehaviour
 {
     public float punchDamage;
     public float punchReach;
-    public float punchChainDelay;
+    public float punchChainWindowStart;
+    public float punchChainWindowEnd;
     public float swordDamage;
-    public float swingChainDelay;
+    public float swordSwingChainWindowStart;
+    public float swordSwingChainWindowEnd;
 
     [SerializeField] private GameObject sheathedSword;
     [SerializeField] private GameObject armedSword;
@@ -18,9 +20,11 @@ public class PlayerAction : MonoBehaviour
     private PlayerInput inputScript;
     private Camera mainCamera;
     private Attacks lastAttack;
-    private float swingTimer;
-    private bool swingingSword;
+    private float punchTimer;
+    private bool punchQueued;
     private float armedTimer;
+    private float swordSwingTimer;
+    private bool swordSwingQueued;
 
     enum Attacks
     {
@@ -28,6 +32,7 @@ public class PlayerAction : MonoBehaviour
         punch1,
         punch2,
         punch3,
+        punch4,
         swingSword1,
         swingSword2,
         swingSword3,
@@ -40,8 +45,11 @@ public class PlayerAction : MonoBehaviour
         inputScript = GetComponent<PlayerInput>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         lastAttack = Attacks.noAttack;
-        swingTimer = 0;
-        swingingSword = false;
+        punchTimer = 0;
+        punchQueued = false;
+        armedTimer = 0;
+        swordSwingTimer = 0;
+        swordSwingQueued = false;
     }
 
     void Update()
@@ -79,20 +87,36 @@ public class PlayerAction : MonoBehaviour
 
     private void UpdateTimers()
     {
-        if (swingingSword)
+        if (anim.GetBool("Punching"))
         {
-            swingTimer += Time.deltaTime;
+            punchTimer += Time.deltaTime;
         }
 
         if (anim.GetBool("Armed"))
         {
             armedTimer += Time.deltaTime;
         }
+
+        if (anim.GetBool("SwingingSword"))
+        {
+            swordSwingTimer += Time.deltaTime;
+        }
     }
 
     private void CheckTimers()
     {
+        if (punchTimer >= punchChainWindowEnd)
+        {
+            anim.SetBool("Punching", false);
+            punchTimer = 0;
+        }
 
+        if (swordSwingTimer >= swordSwingChainWindowEnd)
+        {
+            anim.SetBool("SwingingSword", false);
+            swordSwingTimer = 0;
+            lastAttack = Attacks.noAttack;
+        }
     }
 
     private bool IsAttacking()
@@ -102,57 +126,87 @@ public class PlayerAction : MonoBehaviour
 
     private void Attack()
     {
-        // Play animation
+        // Punch
         if (!anim.GetBool("Armed"))
         {
-            switch (lastAttack)
+            if (!anim.GetBool("Punching"))
             {
-                case Attacks.noAttack:
-                    anim.SetTrigger("Punch1");
-                    lastAttack = Attacks.punch1;
-                    break;
-                case Attacks.punch1:
-                    anim.SetTrigger("Punch2");
-                    lastAttack = Attacks.punch2;
-                    break;
-                case Attacks.punch2:
-                    anim.SetTrigger("Punch3");
-                    lastAttack = Attacks.punch3;
-                    break;
-                case Attacks.punch3:
-                    anim.SetTrigger("Punch1");
-                    lastAttack = Attacks.punch1;
-                    break;
+                anim.SetBool("Punching", true);
+                Punch();
+            }
+
+            else if (anim.GetBool("Punching") && !punchQueued &&
+                     lastAttack != Attacks.noAttack &&
+                     punchTimer >= punchChainWindowStart &&
+                     punchTimer < punchChainWindowEnd)
+            {
+                punchQueued = true;
+                Punch();
             }
         }
+
+        // Swing Sword
         else
         {
-            switch (lastAttack)
+            if (!anim.GetBool("SwingingSword"))
             {
-                case Attacks.noAttack:
-                    swingingSword = true;
-                    anim.SetTrigger("SwordSwing1");
-                    lastAttack = Attacks.swingSword1;
-                    break;
-
-                case Attacks.swingSword1:
-                    if (swingTimer >= swingChainDelay)
-                    {
-                        swingTimer = 0;
-                        anim.SetTrigger("SwordSwing2");
-                        lastAttack = Attacks.swingSword2;
-                    }
-                    break;
-
-                case Attacks.swingSword2:
-                    if (swingTimer >= swingChainDelay)
-                    {
-                        swingTimer = 0;
-                        anim.SetTrigger("SwordSwing3");
-                        lastAttack = Attacks.swingSword3;
-                    }
-                    break;
+                anim.SetBool("SwingingSword", true);
+                SwingSword();
             }
+
+            else if (anim.GetBool("SwingingSword") && !swordSwingQueued &&
+                     swordSwingTimer >= swordSwingChainWindowStart &&
+                     swordSwingTimer < swordSwingChainWindowEnd)
+            {
+                swordSwingQueued = true;
+                SwingSword();
+            }
+        }
+    }
+
+    private void Punch()
+    {
+        switch (lastAttack)
+        {
+            case Attacks.noAttack:
+                anim.SetTrigger("Punch1");
+                lastAttack = Attacks.punch1;
+                break;
+            case Attacks.punch1:
+                anim.SetTrigger("Punch2");
+                lastAttack = Attacks.punch2;
+                break;
+            case Attacks.punch2:
+                anim.SetTrigger("Punch3");
+                lastAttack = Attacks.punch3;
+                break;
+            case Attacks.punch3:
+                anim.SetTrigger("Punch4");
+                lastAttack = Attacks.punch4;
+                break;
+            case Attacks.punch4:
+                anim.SetTrigger("Punch1");
+                lastAttack = Attacks.punch1;
+                break;
+        }
+    }
+
+    private void SwingSword()
+    {
+        switch (lastAttack)
+        {
+            case Attacks.noAttack:
+                anim.SetTrigger("SwordSwing1");
+                lastAttack = Attacks.swingSword1;
+                break;
+            case Attacks.swingSword1:
+                anim.SetTrigger("SwordSwing2");
+                lastAttack = Attacks.swingSword2;
+                break;
+            case Attacks.swingSword2:
+                anim.SetTrigger("SwordSwing3");
+                lastAttack = Attacks.swingSword3;
+                break;
         }
     }
 
@@ -178,12 +232,16 @@ public class PlayerAction : MonoBehaviour
         anim.SetBool("Armed", false);
     }
 
-    private void DoneSwing()
+    private void StartedPunch()
     {
-        // Reset attack variables once you stop chaining attacks
-        lastAttack = Attacks.noAttack;
-        swingingSword = false;
-        swingTimer = 0;
+        punchQueued = false;
+        punchTimer = 0;
+    }
+
+    private void StartedSwordSwing()
+    {
+        swordSwingQueued = false;
+        swordSwingTimer = 0;
 
     }
 

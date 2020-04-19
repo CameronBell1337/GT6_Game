@@ -31337,9 +31337,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punchDamage: 1
   punchReach: 3.5
-  punchChainDelay: 1
+  punchChainWindowStart: 0.4
+  punchChainWindowEnd: 0.7
   swordDamage: 2
-  swingChainDelay: 0.3
+  swordSwingChainWindowStart: 0.2
+  swordSwingChainWindowEnd: 1
   sheathedSword: {fileID: 776263435650659119}
   armedSword: {fileID: 1924477075}
 --- !u!114 &6477360346975462274
