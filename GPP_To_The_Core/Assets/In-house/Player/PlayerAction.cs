@@ -13,6 +13,7 @@ public class PlayerAction : MonoBehaviour
     public float swordAutoSheathTime;
     public float swordSwingChainWindowStart;
     public float swordSwingChainWindowEnd;
+    public LayerMask enemyLayers;
 
     [SerializeField] private GameObject sheathedSword;
     [SerializeField] private GameObject armedSword;
@@ -260,15 +261,24 @@ public class PlayerAction : MonoBehaviour
 
     }
 
-    private void Hit()
+    private void PunchHit()
     {
         // Check to deal damage
-        Vector3 origin = transform.position + Vector3.up * col.height * 0.40f;
+        Vector3 origin = transform.position + Vector3.up * col.height * 0.65f;
 
-        if (Physics.Raycast(origin, transform.forward, out RaycastHit hit, punchReach) &&
-                    hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (Physics.SphereCast(origin, col.radius * 0.9f, transform.forward, out RaycastHit hit, punchReach, enemyLayers))
         {
-            //hit.transform.GetComponent<EnemyAttackHandler>().DealDamage(hit.transform, punchDamage);
+            RaycastHit[] allHits = Physics.SphereCastAll(origin, col.radius * 0.9f, transform.forward, punchReach, enemyLayers);
+            Debug.Log("Hit");
+            foreach (RaycastHit eachHit in allHits)
+            {
+                eachHit.transform.GetComponent<EnemyAttackHandler>().DealDamage(eachHit.transform, punchDamage);
+            }
         }
+    }
+
+    private void SwordHit()
+    {
+
     }
 }

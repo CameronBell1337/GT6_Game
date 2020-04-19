@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 2061546795}
   - component: {fileID: 2061546794}
   - component: {fileID: 2061546793}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31336,13 +31336,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punchDamage: 1
-  punchReach: 3.5
+  punchReach: 2.2
   punchChainWindowStart: 0.4
   punchChainWindowEnd: 0.7
   swordDamage: 2
   swordAutoSheathTime: 8
   swordSwingChainWindowStart: 0.2
   swordSwingChainWindowEnd: 1
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1024
   sheathedSword: {fileID: 776263435650659119}
   armedSword: {fileID: 1924477075}
 --- !u!114 &6477360346975462274
@@ -31366,7 +31369,7 @@ MonoBehaviour:
   jumpForwardRunningForce: 7
   groundLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   airGlideMultiplier: 900
   maxAirGlideSpeed: 9
   maxRunningJumpAirGlideSpeed: 12

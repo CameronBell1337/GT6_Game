@@ -38057,7 +38057,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.3192342
-    functionName: Hit
+    functionName: PunchHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -108167,7 +108167,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.4606479
-    functionName: Hit
+    functionName: SwordHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
