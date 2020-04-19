@@ -59,24 +59,19 @@ public class PlayerAction : MonoBehaviour
             Attack();
         }
 
-        if (inputScript.inputAction2)
+        if (inputScript.inputAction2 && !anim.GetBool("SwappingWeapon"))
         {
             // Swap weapons
-            if (!anim.GetBool("Armed") && !IsAttacking())
+            lastAttack = Attacks.noAttack;
+            anim.SetBool("SwappingWeapon", true);
+
+            if (!anim.GetBool("Armed"))
             {
-                lastAttack = Attacks.noAttack;
-
                 anim.SetTrigger("DrawSword");
-
-                StartCoroutine(DrawSword());
             }
             else
             {
-                lastAttack = Attacks.noAttack;
-
                 anim.SetTrigger("SheathSword");
-
-                StartCoroutine(SheathSword());
             }
         }
         
@@ -210,26 +205,33 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    private IEnumerator DrawSword()
+    private void WeaponSwitch()
     {
-        anim.SetLayerWeight(1, 1);
+        if (!anim.GetBool("Armed"))
+        {
+            // Draw sword
+            armedSword.SetActive(true);
+            sheathedSword.SetActive(false);
 
-        yield return new WaitForSeconds(0.25f);
+            anim.SetLayerWeight(1, 1);
 
-        armedSword.SetActive(true);
-        sheathedSword.SetActive(false);
-        anim.SetBool("Armed", true);
+            anim.SetBool("Armed", true);
+        }
+        else
+        {
+            // Sheath sword
+            sheathedSword.SetActive(true);
+            armedSword.SetActive(false);
+
+            anim.SetLayerWeight(1, 0);
+
+            anim.SetBool("Armed", false);
+        }
     }
 
-    private IEnumerator SheathSword()
+    private void DoneSwappingWeapon() 
     {
-        anim.SetLayerWeight(1, 0);
-
-        yield return new WaitForSeconds(0.5f);
-
-        sheathedSword.SetActive(true);
-        armedSword.SetActive(false);
-        anim.SetBool("Armed", false);
+        anim.SetBool("SwappingWeapon", false);
     }
 
     private void StartedPunch()
