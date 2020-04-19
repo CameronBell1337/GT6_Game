@@ -40,7 +40,7 @@ public class PlayerInput : MonoBehaviour
             inputAction = Input.GetButtonDown("Action");
             inputRunSpeed = Input.GetAxisRaw("Run");
             inputSwitchCam = Input.GetButtonDown("Camera Mode Switch");
-            inputRespawn = Input.GetButtonDown("Respawn");
+            //inputRespawn = Input.GetButtonDown("Respawn");
 
             if (canAim)
             {
