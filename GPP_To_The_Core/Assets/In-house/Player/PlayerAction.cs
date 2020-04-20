@@ -20,6 +20,8 @@ public class PlayerAction : MonoBehaviour
     private Animator anim;
     private CapsuleCollider col;
     private PlayerInput inputScript;
+    private PlayerStats stats;
+    private Collider swordHitArea;
     private Camera mainCamera;
     private Attacks lastAttack;
     private float punchTimer;
@@ -45,6 +47,8 @@ public class PlayerAction : MonoBehaviour
         anim = GetComponent<Animator>();
         col = GetComponent<CapsuleCollider>();
         inputScript = GetComponent<PlayerInput>();
+        stats = GetComponent<PlayerStats>();
+        swordHitArea = transform.Find("SwordHitArea").GetComponent<Collider>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         lastAttack = Attacks.noAttack;
         punchTimer = 0;
@@ -61,7 +65,7 @@ public class PlayerAction : MonoBehaviour
             Attack();
         }
 
-        if (inputScript.inputAction2 && !anim.GetBool("SwappingWeapon"))
+        if (inputScript.inputAction2 && !anim.GetBool("SwappingWeapon") && stats.hasSword)
         {
             // Swap weapons
             lastAttack = Attacks.noAttack;
@@ -226,7 +230,7 @@ public class PlayerAction : MonoBehaviour
             armedSword.SetActive(true);
             sheathedSword.SetActive(false);
 
-            anim.SetLayerWeight(1, 1);
+            anim.SetLayerWeight(1, 0.5f);
 
             anim.SetBool("Armed", true);
         }
@@ -272,13 +276,13 @@ public class PlayerAction : MonoBehaviour
             Debug.Log("Hit");
             foreach (RaycastHit eachHit in allHits)
             {
-                eachHit.transform.GetComponent<EnemyAttackHandler>().DealDamage(eachHit.transform, punchDamage);
+                eachHit.transform.GetComponent<EnemyAttackHandler>().DealDamage(punchDamage);
             }
         }
     }
 
     private void SwordHit()
     {
-
+        
     }
 }

@@ -10,7 +10,7 @@ public class CameraMovement : MonoBehaviour
     public float smoothing;
     public float aimSensitivityX;
     public float aimSensitivityY;
-    public LayerMask groundLayers;
+    public LayerMask cameraHitLayers;
     public float collisionCamPadding;
     public float nsewModeCamSmoothing;
     [HideInInspector] public Vector3 baseOffset;
@@ -218,7 +218,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 dir = ((cameraTarget.transform.position + baseOffset) - midBodyPos).normalized;
         float maxDist = Vector3.Distance(Vector3.zero, baseOffset);
 
-        if (Physics.Raycast(midBodyPos, dir, out cameraCollisionHit, maxDist, groundLayers))
+        if (Physics.Raycast(midBodyPos, dir, out cameraCollisionHit, maxDist, cameraHitLayers))
         {
             return true;
         }

@@ -13,15 +13,34 @@ public class EnemyAttackHandler : MonoBehaviour
         //slimeStats = GetComponent<SlimeStats>();
     }
 
-    public void DealDamage(Transform _enemy, float _damage)
+    public void DealDamage(float _damage)
     {
-        switch(_enemy.tag)
+        switch(transform.tag)
         {
             case "Slime":
                 {
                     //slimeStats.TakeDamage(_damage);
                     break;
                 }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        bool isSwingingSword = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().GetBool("SwingingSword");
+
+        if (other.name == "2Hand-Sword-InHand" && isSwingingSword)
+        {
+            float swordDamage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAction>().swordDamage;
+
+            switch (transform.tag)
+            {
+                case "Slime":
+                    {
+                        //slimeStats.TakeDamage(swordDamage);
+                        break;
+                    }
+            }
         }
     }
 }

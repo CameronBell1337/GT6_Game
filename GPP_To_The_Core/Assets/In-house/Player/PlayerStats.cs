@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     /*[HideInInspector]*/ public float health;
+    public bool hasSword;
 
     [SerializeField] private float maxHeath;
+    [SerializeField] private GameObject sheathedSword;
+    private bool hasSwordEquipped;
     private Animator anim;
     private PlayerInput input;
     private PlayerMovement movementScript;
@@ -14,6 +17,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         health = maxHeath;
+        hasSwordEquipped = false;
         anim = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
         movementScript = GetComponent<PlayerMovement>();
@@ -48,6 +52,18 @@ public class PlayerStats : MonoBehaviour
             anim.SetTrigger("Revived");
 
             transform.position = Vector3.zero;
+        }
+
+        // Carrying sword enabled/disabled
+        if (hasSword && !hasSwordEquipped)
+        {
+            hasSwordEquipped = true;
+            sheathedSword.SetActive(true);
+        }
+        else if (!hasSword && hasSwordEquipped)
+        {
+            hasSwordEquipped = false;
+            sheathedSword.SetActive(false);
         }
     }
 
