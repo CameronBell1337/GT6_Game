@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     /*[HideInInspector]*/ public float health;
     public bool hasSword;
+    public respawnCheckpoint respawnPoint;
 
     [SerializeField] private float maxHeath;
     [SerializeField] private GameObject sheathedSword;
@@ -21,6 +22,7 @@ public class PlayerStats : MonoBehaviour
         anim = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
         movementScript = GetComponent<PlayerMovement>();
+        respawnPoint = FindObjectOfType<respawnCheckpoint>();
     }
 
     private void Update()
@@ -47,11 +49,14 @@ public class PlayerStats : MonoBehaviour
             input.canInput = true;
 
             input.respawnOverride = false;
-
+            if(anim.GetBool("Dead"))
+            {
+                anim.SetTrigger("Revived");
+            }
             anim.SetBool("Dead", false);
-            anim.SetTrigger("Revived");
+            
 
-            transform.position = Vector3.zero;
+            transform.position = respawnPoint.currentCheckpoint;
         }
 
         // Carrying sword enabled/disabled
