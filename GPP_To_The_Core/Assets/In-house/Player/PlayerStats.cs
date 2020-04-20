@@ -5,14 +5,20 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     /*[HideInInspector]*/ public float health;
+    public bool hasSword;
 
     [SerializeField] private float maxHeath;
+    [SerializeField] private GameObject sheathedSword;
+    private bool hasSwordEquipped;
+    private Animator anim;
     private PlayerInput input;
     private PlayerMovement movementScript;
 
     void Start()
     {
         health = maxHeath;
+        hasSwordEquipped = false;
+        anim = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
         movementScript = GetComponent<PlayerMovement>();
     }
@@ -20,26 +26,44 @@ public class PlayerStats : MonoBehaviour
     private void Update()
     {
         // Death
-        if (health == 0)
+        if (health <= 0 && !anim.GetBool("Dead"))
         {
-            health = -1;
+            health = 0;
 
             input.canInput = false;
-
             input.KillInput();
 
             input.respawnOverride = true;
+
+            anim.SetBool("Dead", true);
+            anim.SetTrigger("Died");
         }
 
         // Respawn
         if (input.inputRespawn)
         {
-            transform.position = Vector3.zero;
-
             health = maxHeath;
 
-            input.respawnOverride = false;
             input.canInput = true;
+
+            input.respawnOverride = false;
+
+            anim.SetBool("Dead", false);
+            anim.SetTrigger("Revived");
+
+            transform.position = Vector3.zero;
+        }
+
+        // Carrying sword enabled/disabled
+        if (hasSword && !hasSwordEquipped)
+        {
+            hasSwordEquipped = true;
+            sheathedSword.SetActive(true);
+        }
+        else if (!hasSword && hasSwordEquipped)
+        {
+            hasSwordEquipped = false;
+            sheathedSword.SetActive(false);
         }
     }
 

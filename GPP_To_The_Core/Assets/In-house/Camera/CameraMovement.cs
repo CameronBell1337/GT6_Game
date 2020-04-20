@@ -10,13 +10,13 @@ public class CameraMovement : MonoBehaviour
     public float smoothing;
     public float aimSensitivityX;
     public float aimSensitivityY;
-    public LayerMask groundLayers;
+    public LayerMask cameraHitLayers;
     public float collisionCamPadding;
     public float nsewModeCamSmoothing;
-    public int cameraMode;
     [HideInInspector] public Vector3 baseOffset;
     [HideInInspector] public bool cameraOverride;
 
+    [SerializeField] private CameraModes cameraMode;
     private GameObject cameraTarget;
     private PlayerInput playerInputScript;
     private Vector3 offset;
@@ -26,7 +26,7 @@ public class CameraMovement : MonoBehaviour
     private bool controllerAimReset;
     private bool keyboardAimReset;
 
-    enum CameraModeNames
+    public enum CameraModes
     {
         thirdPersonFollow,
         nsewSoftLock
@@ -34,10 +34,14 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
-        cameraMode = 0;
-        baseOffset = new Vector3(0, offsetHeight, -offsetDistance);
-        cameraOverride = false;
         cameraTarget = GameObject.FindGameObjectWithTag("Player");
+        baseOffset = new Vector3(0, offsetHeight, -offsetDistance);
+        //Vector3.RotateTowards(baseOffset, -cameraTarget.transform.forward, Time.deltaTime, 0);
+        float startingPlayerFacingAngle = Vector3.SignedAngle(Vector3.forward, cameraTarget.transform.forward, Vector3.up);
+        baseOffset = Quaternion.AngleAxis(startingPlayerFacingAngle, Vector3.up) * baseOffset;
+
+        cameraOverride = false;
+        cameraMode = CameraModes.thirdPersonFollow;
         playerInputScript = cameraTarget.GetComponent<PlayerInput>();
         offset = baseOffset;
         rotateX = 0;
@@ -55,9 +59,9 @@ public class CameraMovement : MonoBehaviour
         //Switch between camera modes
         if (playerInputScript.inputSwitchCam)
         {
-            if (cameraMode == (int)CameraModeNames.thirdPersonFollow)
+            if (cameraMode == CameraModes.thirdPersonFollow)
             {
-                cameraMode = (int)CameraModeNames.nsewSoftLock;
+                cameraMode = CameraModes.nsewSoftLock;
                 offset = baseOffset;
 
                 // Rotate camera to lock to closest NSEW direction
@@ -99,9 +103,9 @@ public class CameraMovement : MonoBehaviour
                 // Update offset angle
                 offset = Quaternion.AngleAxis(angleToRotate, Vector3.up) * offset;
             }
-            else if (cameraMode == (int)CameraModeNames.nsewSoftLock)
+            else if (cameraMode == CameraModes.nsewSoftLock)
             {
-                cameraMode = (int)CameraModeNames.thirdPersonFollow;
+                cameraMode = CameraModes.thirdPersonFollow;
                 baseOffset = offset;
             }
         }
@@ -122,7 +126,7 @@ public class CameraMovement : MonoBehaviour
             switch (cameraMode)
             {
                 default:
-                case (int)CameraModeNames.thirdPersonFollow:
+                case CameraModes.thirdPersonFollow:
                     {
                         // Detect camera collision
                         if (DetectCameraCollision())
@@ -146,7 +150,7 @@ public class CameraMovement : MonoBehaviour
 
                         break;
                     }
-                case (int)CameraModeNames.nsewSoftLock:
+                case CameraModes.nsewSoftLock:
                     {
                         // Check for let go of controller joystick && keybaord buttons before rotating again
                         if (playerInputScript.inputAim.x <= 0.75 &&
@@ -214,7 +218,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 dir = ((cameraTarget.transform.position + baseOffset) - midBodyPos).normalized;
         float maxDist = Vector3.Distance(Vector3.zero, baseOffset);
 
-        if (Physics.Raycast(midBodyPos, dir, out cameraCollisionHit, maxDist, groundLayers))
+        if (Physics.Raycast(midBodyPos, dir, out cameraCollisionHit, maxDist, cameraHitLayers))
         {
             return true;
         }

@@ -7,77 +7,282 @@ public class PlayerAction : MonoBehaviour
 {
     public float punchDamage;
     public float punchReach;
+    public float punchChainWindowStart;
+    public float punchChainWindowEnd;
+    public float swordDamage;
+    public float swordAutoSheathTime;
+    public float swordSwingChainWindowStart;
+    public float swordSwingChainWindowEnd;
+    public LayerMask enemyLayers;
 
+    [SerializeField] private GameObject sheathedSword;
+    [SerializeField] private GameObject armedSword;
     private Animator anim;
     private CapsuleCollider col;
     private PlayerInput inputScript;
-    private int lastAttack;
+    private PlayerStats stats;
+    private Collider swordHitArea;
     private Camera mainCamera;
+    private Attacks lastAttack;
+    private float punchTimer;
+    private bool punchQueued;
+    private float armedTimer;
+    private float swordSwingTimer;
+    private bool swordSwingQueued;
+
+    enum Attacks
+    {
+        noAttack,
+        punch1,
+        punch2,
+        punch3,
+        punch4,
+        swingSword1,
+        swingSword2,
+        swingSword3,
+    }
 
     void Start()
     {
-        inputScript = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
         col = GetComponent<CapsuleCollider>();
+        inputScript = GetComponent<PlayerInput>();
+        stats = GetComponent<PlayerStats>();
+        swordHitArea = transform.Find("SwordHitArea").GetComponent<Collider>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        lastAttack = 0;
+        lastAttack = Attacks.noAttack;
+        punchTimer = 0;
+        punchQueued = false;
+        armedTimer = 0;
+        swordSwingTimer = 0;
+        swordSwingQueued = false;
     }
 
     void Update()
     {
-        // Check for action input
-        if (inputScript.inputAction)
+        if (inputScript.inputAction1)
         {
-            // Do an action
-            if (CanAttack())
+            Attack();
+        }
+
+        if (inputScript.inputAction2 && !anim.GetBool("SwappingWeapon") && stats.hasSword)
+        {
+            // Swap weapons
+            lastAttack = Attacks.noAttack;
+            anim.SetBool("SwappingWeapon", true);
+
+            if (!anim.GetBool("Armed"))
             {
-                Attack();
+                anim.SetTrigger("DrawSword");
             }
+            else
+            {
+                anim.SetTrigger("SheathSword");
+            }
+        }
+        
+        UpdateTimers();
+
+        CheckTimers();
+    }
+
+    private void UpdateTimers()
+    {
+        if (anim.GetBool("Punching"))
+        {
+            punchTimer += Time.deltaTime;
+        }
+
+        if (anim.GetBool("Armed"))
+        {
+            armedTimer += Time.deltaTime;
+        }
+
+        if (anim.GetBool("SwingingSword"))
+        {
+            swordSwingTimer += Time.deltaTime;
         }
     }
 
-    private bool CanAttack()
+    private void CheckTimers()
     {
-        if (anim.GetCurrentAnimatorStateInfo(2).IsName("Passive"))
+        if (punchTimer >= punchChainWindowEnd)
         {
-            return true;
+            anim.SetBool("Punching", false);
+            punchTimer = 0;
         }
-        return false;
+
+        if (swordSwingTimer >= swordSwingChainWindowEnd)
+        {
+            anim.SetBool("SwingingSword", false);
+            lastAttack = Attacks.noAttack;
+            swordSwingTimer = 0;
+        }
+
+        if (armedTimer >= swordAutoSheathTime)
+        {
+            lastAttack = Attacks.noAttack;
+            anim.SetBool("SwappingWeapon", true);
+
+            anim.SetTrigger("SheathSword");
+            armedTimer = 0;
+        }
+    }
+
+    private bool IsAttacking()
+    {
+        return !anim.GetCurrentAnimatorStateInfo(3).IsName("Passive");
     }
 
     private void Attack()
     {
-        // Play animation
+        // Punch
+        if (!anim.GetBool("Armed"))
+        {
+            if (!anim.GetBool("Punching"))
+            {
+                anim.SetBool("Punching", true);
+                Punch();
+            }
+
+            else if (anim.GetBool("Punching") && !punchQueued &&
+                     lastAttack != Attacks.noAttack &&
+                     punchTimer >= punchChainWindowStart &&
+                     punchTimer < punchChainWindowEnd)
+            {
+                punchQueued = true;
+                Punch();
+            }
+        }
+
+        // Swing Sword
+        else
+        {
+            if (!anim.GetBool("SwingingSword"))
+            {
+                anim.SetBool("SwingingSword", true);
+                SwingSword();
+            }
+
+            else if (anim.GetBool("SwingingSword") && !swordSwingQueued &&
+                     swordSwingTimer >= swordSwingChainWindowStart &&
+                     swordSwingTimer < swordSwingChainWindowEnd)
+            {
+                swordSwingQueued = true;
+                SwingSword();
+            }
+        }
+    }
+
+    private void Punch()
+    {
         switch (lastAttack)
         {
-            case 0:
-                anim.SetTrigger("Attack1");
-                lastAttack = 1;
+            case Attacks.noAttack:
+                anim.SetTrigger("Punch1");
+                lastAttack = Attacks.punch1;
                 break;
-            case 1:
-                anim.SetTrigger("Attack2");
-                lastAttack = 2;
+            case Attacks.punch1:
+                anim.SetTrigger("Punch2");
+                lastAttack = Attacks.punch2;
                 break;
-            case 2:
-                anim.SetTrigger("Attack3");
-                lastAttack = 3;
+            case Attacks.punch2:
+                anim.SetTrigger("Punch3");
+                lastAttack = Attacks.punch3;
                 break;
-            case 3:
-                anim.SetTrigger("Attack1");
-                lastAttack = 1;
+            case Attacks.punch3:
+                anim.SetTrigger("Punch4");
+                lastAttack = Attacks.punch4;
+                break;
+            case Attacks.punch4:
+                anim.SetTrigger("Punch1");
+                lastAttack = Attacks.punch1;
                 break;
         }
     }
 
-    private void Hit()
+    private void SwingSword()
+    {
+        armedTimer = 0;
+
+        switch (lastAttack)
+        {
+            case Attacks.noAttack:
+                anim.SetTrigger("SwordSwing1");
+                lastAttack = Attacks.swingSword1;
+                break;
+            case Attacks.swingSword1:
+                anim.SetTrigger("SwordSwing2");
+                lastAttack = Attacks.swingSword2;
+                break;
+            case Attacks.swingSword2:
+                anim.SetTrigger("SwordSwing3");
+                lastAttack = Attacks.swingSword3;
+                break;
+        }
+    }
+
+    private void WeaponSwitch()
+    {
+        if (!anim.GetBool("Armed"))
+        {
+            // Draw sword
+            armedSword.SetActive(true);
+            sheathedSword.SetActive(false);
+
+            anim.SetLayerWeight(1, 0.5f);
+
+            anim.SetBool("Armed", true);
+        }
+        else
+        {
+            // Sheath sword
+            sheathedSword.SetActive(true);
+            armedSword.SetActive(false);
+
+            anim.SetLayerWeight(1, 0);
+
+            anim.SetBool("Armed", false);
+        }
+    }
+
+    private void DoneSwappingWeapon() 
+    {
+        anim.SetBool("SwappingWeapon", false);
+        armedTimer = 0;
+    }
+
+    private void StartedPunch()
+    {
+        punchQueued = false;
+        punchTimer = 0;
+    }
+
+    private void StartedSwordSwing()
+    {
+        swordSwingQueued = false;
+        swordSwingTimer = 0;
+
+    }
+
+    private void PunchHit()
     {
         // Check to deal damage
-        Vector3 origin = transform.position + Vector3.up * col.height * 0.40f;
+        Vector3 origin = transform.position + Vector3.up * col.height * 0.65f;
 
-        if (Physics.Raycast(origin, transform.forward, out RaycastHit hit, punchReach) &&
-                    hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (Physics.SphereCast(origin, col.radius * 0.9f, transform.forward, out RaycastHit hit, punchReach, enemyLayers))
         {
-            //hit.transform.GetComponent<EnemyAttackHandler>().DealDamage(hit.transform, punchDamage);
+            RaycastHit[] allHits = Physics.SphereCastAll(origin, col.radius * 0.9f, transform.forward, punchReach, enemyLayers);
+            Debug.Log("Hit");
+            foreach (RaycastHit eachHit in allHits)
+            {
+                eachHit.transform.GetComponent<EnemyAttackHandler>().DealDamage(punchDamage);
+            }
         }
+    }
+
+    private void SwordHit()
+    {
+        
     }
 }

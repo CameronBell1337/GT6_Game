@@ -18,8 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public float maxRunningJumpAirGlideSpeed;
     public float gravity;
     public float groundCheckRadius;
+    public float groundCheckDepth;
     public float wallCheckRadius;
     [Range(0.0f, 1.0f)] public float wallCheckHeightPerc;
+    public float fallOffEdgeSpeedPerc;
     [HideInInspector] public bool hasLeftEdgeYet;
     [HideInInspector] public bool isJumping;
     [HideInInspector] public bool isRunningJump;
@@ -46,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
-        lastLookDirection = Vector3.zero;
+        lastLookDirection = transform.forward;
         runningDustPS = transform.Find("Running Dust PS").GetComponent<ParticleSystem>();
         landingPS = transform.Find("Landing PS").GetComponent<ParticleSystem>();
         jumpingPS = transform.Find("Jumping PS").GetComponent<ParticleSystem>();
@@ -63,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         
         JumpCheck();
         FallCheck();
+        FallingFrictionCheck();
         ParticleEffectsCheck();
     }
 
@@ -88,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
             // Add initial force to match origial movement force
             if (hasLeftEdgeYet)
             {
-                rb.AddForce(inputScript.inputMove.normalized * movementSpeed, ForceMode.Impulse);
+                rb.AddForce(inputScript.inputMove.normalized * movementSpeed * fallOffEdgeSpeedPerc, ForceMode.Impulse);
                 hasLeftEdgeYet = false;
             }
             // Then airglide
@@ -156,17 +159,17 @@ public class PlayerMovement : MonoBehaviour
 
             anim.SetBool("Falling", true);
             anim.SetTrigger("Jump");
-            anim.SetLayerWeight(1, 1);
+            anim.SetLayerWeight(2, 1);
             isJumping = true;
             jumpingPS.Play();
         }
         // Ending falling animation
-        else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Fall") && IsGrounded() ||
-                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump") && IsGrounded() ||
-                 anim.GetCurrentAnimatorStateInfo(1).IsName("Jump Flip") && IsGrounded())
+        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("Fall") && IsGrounded() ||
+                 anim.GetCurrentAnimatorStateInfo(2).IsName("Jump") && IsGrounded() ||
+                 anim.GetCurrentAnimatorStateInfo(2).IsName("Jump Flip") && IsGrounded())
         {
             anim.SetBool("Falling", false);
-            anim.SetLayerWeight(1, 0.5f);
+            anim.SetLayerWeight(2, 0.5f);
             rb.velocity = Vector3.zero;
             isJumping = false;
         }
@@ -197,16 +200,26 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetTrigger("Drop");
             anim.SetBool("Falling", true);
-            anim.SetLayerWeight(1, 1);
+            anim.SetLayerWeight(2, 1);
             hasLeftEdgeYet = true;
             isRunningJump = false;
+        }
+    }
+
+    private void FallingFrictionCheck()
+    {
+        if (anim.GetBool("Falling") && IsTouchingNOnSides())
+        {
+            GetComponent<Collider>().material.dynamicFriction = 0.0f;
+            GetComponent<Collider>().material.staticFriction = 0.0f;
+            GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
         }
     }
 
     private void ParticleEffectsCheck()
     {
         if (anim.GetBool("Running") && inputScript.inputRunSpeed > 0 &&
-            anim.GetCurrentAnimatorStateInfo(1).IsName("Grounded"))
+            anim.GetCurrentAnimatorStateInfo(2).IsName("Grounded"))
         {
             if (!runningDustPS.isPlaying)
             {
@@ -263,9 +276,19 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(new Vector3(0, -gravity, 0) * Time.fixedDeltaTime);
     }
 
+    private void FootL()
+    {
+        // Linked to moment foot reaches ground
+    }
+
+    private void FootR()
+    {
+        // Linked to moment foot reaches ground
+    }
+
     public bool IsGrounded()
     {
-        Vector3 checkExtents = new Vector3(col.radius * groundCheckRadius, 0.05f, col.radius * groundCheckRadius);
+        Vector3 checkExtents = new Vector3(col.radius * groundCheckRadius, groundCheckDepth / 2, col.radius * groundCheckRadius);
         Quaternion zeroAngle = new Quaternion();
         return Physics.CheckBox(transform.position, checkExtents, zeroAngle, groundLayers);
     }
