@@ -7,6 +7,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="ButtonToKey.cs" t="Include" />
         <e p="In-house" t="Include">
           <e p="Camera" t="Include">
             <e p="CameraMovement.cs" t="Include" />
@@ -56,7 +57,10 @@
             <e p="Bilboard.cs" t="Include" />
             <e p="HealtBar.cs" t="Include" />
             <e p="HealthPlayer.cs" t="Include" />
+            <e p="IfCloseToNPC.cs" t="Include" />
+            <e p="JumpTriggerText.cs" t="Include" />
             <e p="NPC.cs" t="Include" />
+            <e p="Tutorial.cs" t="Include" />
           </e>
           <e p="Stylized Nature Environment" t="Include">
             <e p="ReadMe.txt" t="Include" />

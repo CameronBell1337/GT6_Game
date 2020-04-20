@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
-     bool inRange = false;
+    public bool inRange = false;
      private bool inChat = false;
      private bool inDialogue = true;
      private bool inDialogueLeftSubTree = false;
      private bool inDialogueUpSubTree = false;
+     public static bool chatOn = false; 
      
      [Header("Objects")]
 
@@ -47,13 +48,22 @@ public class NPC : MonoBehaviour
      
     void Start()
     {
-        inRange = true;
+      //  inRange = true;
         npcWindow.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (IfCloseToNPC.inRange1)
+             {
+                 inRange = true;
+             }
+             else
+             {
+                 inRange = false;
+             }
+        
         if (Input.GetKeyDown("e"))
         {
             if (inRange && !inChat)
@@ -61,8 +71,16 @@ public class NPC : MonoBehaviour
                 npcWindow.gameObject.SetActive(true);
                 chatText.GetComponent<Text>().text = greeting;
                 loadDialogue1();
+                chatOn = true;
+            }
+            else
+            {
+                chatOn = false;
             }
         }
+
+        
+        
     }
 
     void loadDialogue1()
@@ -157,5 +175,6 @@ public class NPC : MonoBehaviour
     {
         npcWindow.gameObject.SetActive(false);
         inChat = false;
+        chatOn = false;
     }
 }
