@@ -54,6 +54,7 @@
             </e>
           </e>
           <e p="Scripts" t="Include">
+            <e p="AttackTriggerText.cs" t="Include" />
             <e p="Bilboard.cs" t="Include" />
             <e p="HealtBar.cs" t="Include" />
             <e p="HealthPlayer.cs" t="Include" />
