@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [HideInInspector] public bool inputJump;
-    [HideInInspector] public bool inputAction;
+    [HideInInspector] public bool inputAction1;
+    [HideInInspector] public bool inputAction2;
     [HideInInspector] public Vector2 inputAim;
     [HideInInspector] public float inputKBAimHorizontal;
     [HideInInspector] public float inputCtlrOnlyAim;
@@ -37,10 +38,11 @@ public class PlayerInput : MonoBehaviour
         {
             // Get basic inputs
             inputJump = Input.GetButtonDown("Jump");
-            inputAction = Input.GetButtonDown("Action");
+            inputAction1 = Input.GetButtonDown("Action 1");
+            inputAction2 = Input.GetButtonDown("Action 2");
             inputRunSpeed = Input.GetAxisRaw("Run");
             inputSwitchCam = Input.GetButtonDown("Camera Mode Switch");
-            //inputRespawn = Input.GetButtonDown("Respawn");
+            inputRespawn = Input.GetButtonDown("Respawn");
 
             if (canAim)
             {
@@ -85,7 +87,8 @@ public class PlayerInput : MonoBehaviour
     public void KillInput()
     {
         inputJump = false;
-        inputAction = false;
+        inputAction1 = false;
+        inputAction2 = false;
         inputAim = Vector2.zero;
         inputKBAimHorizontal = 0;
         inputCtlrOnlyAim = 0;
