@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: fireSmokeMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 31683179247c06843a185b578bcb92a6,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_2C5AE5E:
+        m_Texture: {fileID: 2800000, guid: abcd657128b17784687c131ed84fcae3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D5CA24CD:
+        m_Texture: {fileID: 2800000, guid: 613b8a8c44114e34f8666e5df5729add, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_144BB4C6: 0.1
+    m_Colors:
+    - Color_6E6BB3C3: {r: 8, g: 2.0666668, b: 0.8800001, a: 0.84705883}
+    - Vector2_933308B9: {r: 0.01, g: 0.8, b: 0, a: 0}
+    - Vector2_EE56549D: {r: -0.5, g: 0.7, b: 0, a: 0}
