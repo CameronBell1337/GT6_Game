@@ -31392,8 +31392,10 @@ MonoBehaviour:
   maxRunningJumpAirGlideSpeed: 12
   gravity: 700
   groundCheckRadius: 0.6
+  groundCheckDepth: 0.08
   wallCheckRadius: 1.1
   wallCheckHeightPerc: 0.5
+  fallOffEdgeSpeedPerc: 0.75
   hasLeftEdgeYet: 0
   isJumping: 0
   isRunningJump: 0

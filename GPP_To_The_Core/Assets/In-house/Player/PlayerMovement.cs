@@ -18,8 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public float maxRunningJumpAirGlideSpeed;
     public float gravity;
     public float groundCheckRadius;
+    public float groundCheckDepth;
     public float wallCheckRadius;
     [Range(0.0f, 1.0f)] public float wallCheckHeightPerc;
+    public float fallOffEdgeSpeedPerc;
     [HideInInspector] public bool hasLeftEdgeYet;
     [HideInInspector] public bool isJumping;
     [HideInInspector] public bool isRunningJump;
@@ -89,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
             // Add initial force to match origial movement force
             if (hasLeftEdgeYet)
             {
-                rb.AddForce(inputScript.inputMove.normalized * movementSpeed, ForceMode.Impulse);
+                rb.AddForce(inputScript.inputMove.normalized * movementSpeed * fallOffEdgeSpeedPerc, ForceMode.Impulse);
                 hasLeftEdgeYet = false;
             }
             // Then airglide
@@ -286,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        Vector3 checkExtents = new Vector3(col.radius * groundCheckRadius, 0.05f, col.radius * groundCheckRadius);
+        Vector3 checkExtents = new Vector3(col.radius * groundCheckRadius, groundCheckDepth / 2, col.radius * groundCheckRadius);
         Quaternion zeroAngle = new Quaternion();
         return Physics.CheckBox(transform.position, checkExtents, zeroAngle, groundLayers);
     }
