@@ -14,6 +14,7 @@ public class PlayerAction : MonoBehaviour
     public float swordSwingChainWindowStart;
     public float swordSwingChainWindowEnd;
     public LayerMask enemyLayers;
+    [HideInInspector] public bool canAttack;
 
     [SerializeField] private GameObject sheathedSword;
     [SerializeField] private GameObject armedSword;
@@ -44,11 +45,12 @@ public class PlayerAction : MonoBehaviour
 
     void Start()
     {
+        canAttack = true;
+
         anim = GetComponent<Animator>();
         col = GetComponent<CapsuleCollider>();
         inputScript = GetComponent<PlayerInput>();
         stats = GetComponent<PlayerStats>();
-        swordHitArea = transform.Find("SwordHitArea").GetComponent<Collider>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         lastAttack = Attacks.noAttack;
         punchTimer = 0;
@@ -60,7 +62,7 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        if (inputScript.inputAction1)
+        if (inputScript.inputAction1 && canAttack)
         {
             Attack();
         }
