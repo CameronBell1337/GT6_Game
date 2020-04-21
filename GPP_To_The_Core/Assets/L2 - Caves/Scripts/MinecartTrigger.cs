@@ -48,6 +48,8 @@ public class MinecartTrigger : MonoBehaviour
         if (other.tag.Equals("Player"))
         {
             playerInRange = false;
+            getInUI.alpha = 0;
+            getOutUI.alpha = 0;
         }
     }
 
