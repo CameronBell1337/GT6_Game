@@ -39,6 +39,7 @@ public class IfCloseToNPC : MonoBehaviour
             text.gameObject.SetActive(false);
             main.gameObject.SetActive(false);
             chat.gameObject.SetActive(true);
+            
         }
         else
         {
