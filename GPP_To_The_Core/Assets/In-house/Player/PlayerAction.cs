@@ -269,7 +269,6 @@ public class PlayerAction : MonoBehaviour
     {
         // Check to deal damage
         Vector3 origin = transform.position + Vector3.up * col.height * 0.65f;
-
         if (Physics.SphereCast(origin, col.radius * 0.9f, transform.forward, out RaycastHit hit, punchReach, enemyLayers))
         {
             RaycastHit[] allHits = Physics.SphereCastAll(origin, col.radius * 0.9f, transform.forward, punchReach, enemyLayers);

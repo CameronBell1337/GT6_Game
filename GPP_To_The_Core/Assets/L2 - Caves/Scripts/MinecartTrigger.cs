@@ -55,7 +55,7 @@ public class MinecartTrigger : MonoBehaviour
     {
         HandleUI();
 
-        if (Input.GetButtonDown("AttackL") && playerInRange && !trackController.active)
+        if (Input.GetButtonDown("Action 1") && playerInRange && !trackController.active)
         {
             if (player.transform.parent == null)
             {
@@ -63,32 +63,38 @@ public class MinecartTrigger : MonoBehaviour
                 trackController.DisableColliders();
                 player.transform.position = playerPositionTarget.position;
                 player.transform.parent = transform;
+                player.GetComponent<PlayerInput>().canInput = false;
+                player.GetComponent<PlayerInput>().KillInput();
             }
             else
             {
                 trackController.EnableColliders();
                 player.transform.parent = null;
                 player.transform.position = playerExitPosition.position;
+                player.GetComponent<PlayerInput>().canInput = true;
             }
         }
 
-        if (Input.GetAxis("Horizontal") < -0.1f)
+        if (trackController.active)
         {
-            trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
-            trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, maxTiltRotation * trackController.direction, tiltSpeed * Time.deltaTime);
-            trackController.tiltDirection = trackController.direction;
-        }
-        else if (Input.GetAxis("Horizontal") > 0.1f)
-        {
-            trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
-            trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, -maxTiltRotation * trackController.direction, tiltSpeed * Time.deltaTime);
-            trackController.tiltDirection = -trackController.direction;
-        }
-        else
-        {
-            trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
-            trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
-            trackController.tiltDirection = 0;
+            if (Input.GetAxis("Horizontal") < -0.1f)
+            {
+                trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
+                trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, maxTiltRotation * trackController.direction, tiltSpeed * Time.deltaTime);
+                trackController.tiltDirection = trackController.direction;
+            }
+            else if (Input.GetAxis("Horizontal") > 0.1f)
+            {
+                trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
+                trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, -maxTiltRotation * trackController.direction, tiltSpeed * Time.deltaTime);
+                trackController.tiltDirection = -trackController.direction;
+            }
+            else
+            {
+                trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
+                trackController.tiltRotationOffset = Vector3.Lerp(trackController.tiltRotationOffset, Vector3.zero, tiltSpeed * Time.deltaTime);
+                trackController.tiltDirection = 0;
+            }
         }
     }
 

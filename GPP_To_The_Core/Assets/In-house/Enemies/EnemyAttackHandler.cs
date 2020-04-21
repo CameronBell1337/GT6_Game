@@ -5,24 +5,16 @@ using UnityEngine;
 public class EnemyAttackHandler : MonoBehaviour
 {
     //Enemy scripts that handle damage
-    //private SlimeStats slimeStats;
+    private Enemy enemy;
 
     private void Start()
     {
-        //Set up enemy scripts that handle damage
-        //slimeStats = GetComponent<SlimeStats>();
+        enemy = GetComponent<Enemy>();
     }
 
     public void DealDamage(float _damage)
     {
-        switch(transform.tag)
-        {
-            case "Slime":
-                {
-                    //slimeStats.TakeDamage(_damage);
-                    break;
-                }
-        }
+        enemy.TakeDamage(_damage);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,15 +24,7 @@ public class EnemyAttackHandler : MonoBehaviour
         if (other.name == "2Hand-Sword-InHand" && isSwingingSword)
         {
             float swordDamage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAction>().swordDamage;
-
-            switch (transform.tag)
-            {
-                case "Slime":
-                    {
-                        //slimeStats.TakeDamage(swordDamage);
-                        break;
-                    }
-            }
+            enemy.TakeDamage(swordDamage);
         }
     }
 }

@@ -49368,6 +49368,7 @@ Transform:
   - {fileID: 3244922733978933706}
   - {fileID: 3244922733501450137}
   - {fileID: 3244922732948401029}
+  - {fileID: 4444671859970885009}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49461,7 +49462,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   hasSword: 0
-  maxHeath: 5
+  respawnPoint: {fileID: 0}
+  maxHeath: 100
   sheathedSword: {fileID: 9090985998512438077}
 --- !u!114 &3244922734590471056
 MonoBehaviour:
@@ -49511,8 +49513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bab96f07d14148a00b351e4bdc0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchDamage: 1
-  punchReach: 2.2
+  punchDamage: 5
+  punchReach: 2.5
   punchChainWindowStart: 0.4
   punchChainWindowEnd: 0.7
   swordDamage: 2
@@ -49875,3 +49877,47 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &9113670348580556718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4444671859970885009}
+  - component: {fileID: 5799613263731094231}
+  m_Layer: 2
+  m_Name: SwordHitArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4444671859970885009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113670348580556718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3244922734590637705}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5799613263731094231
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113670348580556718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 1.47, z: 0.61}
