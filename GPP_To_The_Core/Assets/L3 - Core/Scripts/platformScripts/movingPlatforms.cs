@@ -102,7 +102,7 @@ public class movingPlatforms : MonoBehaviour
                 Animator.applyRootMotion = false;
             }
             other.transform.parent = transform;
-            platformCutscene.isPlatformSceneActive = true;
+            //platformCutscene.isPlatformSceneActive = true;
         }
     }
 
@@ -112,7 +112,7 @@ public class movingPlatforms : MonoBehaviour
         {
             Animator.applyRootMotion = false;
             other.transform.parent = null;
-            platformCutscene.isPlatformSceneActive = false;
+            //platformCutscene.isPlatformSceneActive = false;
             triggerCol.gameObject.SetActive(true);
         }
     }

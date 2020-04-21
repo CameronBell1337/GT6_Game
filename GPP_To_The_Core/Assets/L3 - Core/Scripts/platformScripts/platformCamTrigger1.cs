@@ -14,7 +14,7 @@ public class platformCamTrigger1 : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            triggerBool.platform1 = true;
+            //triggerBool.platform1 = true;
 
         }
     }
@@ -23,7 +23,7 @@ public class platformCamTrigger1 : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            triggerBool.platform1 = false;
+            //triggerBool.platform1 = false;
         }
     }
 }
