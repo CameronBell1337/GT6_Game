@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3468444963319396007}
   m_Layer: 0
   m_Name: MineCart
-  m_TagString: Untagged
+  m_TagString: MineCart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b573a9fd8c791554a903c6e952e69928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minecartCameraNumber: 0
+  cameraTarget: {fileID: 0}
   playerPositionTarget: {fileID: 408924556}
   playerExitPosition: {fileID: 8748052779281002279}
   getInUI: {fileID: 0}
