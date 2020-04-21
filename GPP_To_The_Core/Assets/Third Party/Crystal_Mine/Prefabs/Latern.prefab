@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4871624545646660}
   - component: {fileID: 33643412747394408}
   - component: {fileID: 23070676030905798}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Latern002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4392767093167666}
   - component: {fileID: 33737022921173648}
   - component: {fileID: 23506814126697174}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LaternMisc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4969228814819240}
   - component: {fileID: 33119508239215524}
   - component: {fileID: 23809793581114436}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Object008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4149026050302856}
   - component: {fileID: 108017359411707402}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4672827454238502}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LaternGlassLP (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4778115277515638}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LaternMisc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 33410770534394082}
   - component: {fileID: 23450409222946662}
   - component: {fileID: 95792984883830890}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4009377038413070}
   - component: {fileID: 136249119902880148}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Latern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4453513966746856}
   - component: {fileID: 95500934520479460}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Latern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
