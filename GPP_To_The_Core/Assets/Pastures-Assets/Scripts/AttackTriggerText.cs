@@ -27,7 +27,7 @@ public class AttackTriggerText : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("attackTrigger") && counting < 2)
+        if (other.CompareTag("attackTrigger") && counting < 1)
         {
             text.gameObject.SetActive(true);
         }
