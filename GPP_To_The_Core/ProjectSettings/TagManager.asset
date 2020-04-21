@@ -10,6 +10,7 @@ TagManager:
   - FarmerNPC
   - Shadow
   - Collide
+  - MineCart
   layers:
   - Default
   - TransparentFX

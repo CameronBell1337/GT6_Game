@@ -5,6 +5,10 @@ using PathCreation;
 
 public class MinecartTrigger : MonoBehaviour
 {
+    public int minecartCameraNumber = 0;
+    public GameObject cameraTarget;
+    cameraManager camManager;
+
     [Header("Player Position References")]
     public Transform playerPositionTarget;
     public Transform playerExitPosition;
@@ -27,6 +31,7 @@ public class MinecartTrigger : MonoBehaviour
 
     private void Awake()
     {
+        camManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cameraManager>();
         trackController = GetComponentInParent<TrackController>();
         player = GameObject.FindGameObjectWithTag("Player");
         minecartAnimator = GetComponent<Animator>();
@@ -67,6 +72,7 @@ public class MinecartTrigger : MonoBehaviour
                 player.transform.parent = transform;
                 player.GetComponent<PlayerInput>().canInput = false;
                 player.GetComponent<PlayerInput>().KillInput();
+                setCamera();
             }
             else
             {
@@ -74,11 +80,15 @@ public class MinecartTrigger : MonoBehaviour
                 player.transform.parent = null;
                 player.transform.position = playerExitPosition.position;
                 player.GetComponent<PlayerInput>().canInput = true;
+
+                resetCamera();
             }
         }
 
         if (trackController.active)
         {
+            player.transform.localPosition = Vector3.zero;
+
             if (Input.GetAxis("Horizontal") < -0.1f)
             {
                 trackController.tiltPositionOffset = Vector3.Lerp(trackController.tiltPositionOffset, maxTiltPosition, tiltSpeed * Time.deltaTime);
@@ -149,5 +159,15 @@ public class MinecartTrigger : MonoBehaviour
         }
 
         ui.alpha = new_alpha;
+    }
+
+    void setCamera()
+    {
+        camManager.cutScene01Active = true;
+    }
+
+    void resetCamera()
+    {
+        camManager.cutScene01Active = false;
     }
 }
