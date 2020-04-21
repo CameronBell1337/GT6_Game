@@ -10,7 +10,7 @@ public class cutScene1 : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            mainCam.GetComponent<cameraManager>().isCutSceneActive = true;
+            //mainCam.GetComponent<cameraManager>().isCutSceneActive = true;
         }
     }
 
@@ -18,7 +18,7 @@ public class cutScene1 : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            mainCam.GetComponent<cameraManager>().isCutSceneActive = false;
+            //mainCam.GetComponent<cameraManager>().isCutSceneActive = false;
         }
     }
 }

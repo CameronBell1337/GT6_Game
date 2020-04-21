@@ -10,7 +10,7 @@ public class splineTrigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            mainCam.GetComponent<cameraManager>().isSplineActive = true;
+            //mainCam.GetComponent<cameraManager>().isSplineActive = true;
             player.GetComponent<splineFollowPath>().enabled = true;
             player.GetComponent<splineMovementController>().enabled = true;
             player.GetComponent<ThirdPersonCharacterController>().enabled = false;
