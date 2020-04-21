@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
-    public bool inRange = false;
      private bool inChat = false;
      private bool inDialogue = true;
      private bool inDialogueLeftSubTree = false;
      private bool inDialogueUpSubTree = false;
-     public static bool chatOn = false; 
+     public bool chatOn = false; 
      
      [Header("Objects")]
 
@@ -45,28 +44,22 @@ public class NPC : MonoBehaviour
      public string up1Response3;
      public string right3;
      public string rightResponse3;
-     
+
+    private PlayerInput playerInput;
+    private IfCloseToNPC ifTooCloseScript;
+
     void Start()
     {
-      //  inRange = true;
         npcWindow.gameObject.SetActive(false);
+        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+        ifTooCloseScript = GameObject.FindGameObjectWithTag("FarmerNPC").GetComponent<IfCloseToNPC>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (IfCloseToNPC.inRange1)
-             {
-                 inRange = true;
-             }
-             else
-             {
-                 inRange = false;
-             }
-        
-        if (Input.GetKeyDown("e"))
+        if (playerInput.inputAction1)
         {
-            if (inRange && !inChat)
+            if (ifTooCloseScript.inRange && !inChat)
             {
                 npcWindow.gameObject.SetActive(true);
                 chatText.GetComponent<Text>().text = greeting;
@@ -78,9 +71,6 @@ public class NPC : MonoBehaviour
                 chatOn = false;
             }
         }
-
-        
-        
     }
 
     void loadDialogue1()

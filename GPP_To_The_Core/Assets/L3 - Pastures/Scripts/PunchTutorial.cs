@@ -4,21 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class AttackTriggerText : MonoBehaviour
+public class PunchTutorial : MonoBehaviour
 {
 
     private int counting = 0;
+    private PlayerInput input;
     public Canvas text;
-    // Start is called before the first frame update
+    
     void Start()
     {
         text.gameObject.SetActive(false);
+        input = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && text.gameObject)
+        if (input.inputAction1 && text.gameObject)
         {
             StartCoroutine(Attack());
         }
@@ -26,7 +27,7 @@ public class AttackTriggerText : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("attackTrigger") && counting < 1)
+        if (other.CompareTag("punchTutorialTrigger") && counting < 1)
         {
             text.gameObject.SetActive(true);
         }
@@ -34,8 +35,8 @@ public class AttackTriggerText : MonoBehaviour
     
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.8f);
         text.gameObject.SetActive(false);
-        counting ++;
+        counting++;
     }
 }

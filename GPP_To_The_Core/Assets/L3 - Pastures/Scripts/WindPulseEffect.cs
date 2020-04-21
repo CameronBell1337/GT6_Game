@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpEffect : MonoBehaviour
+public class WindPulseEffect : MonoBehaviour
 {
     public float power = 15.0f;
-
     public float radius = 5.0f;
-
     public float upForce = 1.0f;
+    public int counting = 3;
 
-    public static int counting = 3;
+    private PlayerInput input;
+    private WindPulseCollect collector;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        input = GetComponent<PlayerInput>();
+        collector = GetComponent<WindPulseCollect>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKeyUp(KeyCode.G) && counting > 0 && PowerUpCollect.powerUpCollected)
+        if (input.inputAction3 && counting > 0 && collector.windPulseCollected)
         {
             StartCoroutine(time());
             Detonate();
@@ -36,7 +37,7 @@ public class PowerUpEffect : MonoBehaviour
 
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if (rb != null && hit.CompareTag("Enemy"))
+            if (rb != null && hit.gameObject.layer == LayerMask.NameToLayer("Enemies"))
             {
              rb.AddExplosionForce(power, explosionPosition, radius, upForce, ForceMode.Impulse);   
             }

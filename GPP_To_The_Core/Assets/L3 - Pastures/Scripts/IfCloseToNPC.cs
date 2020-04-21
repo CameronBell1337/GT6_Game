@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class IfCloseToNPC : MonoBehaviour
 {
-
-    private Transform Player;
-    public  static bool inRange1 = false;
+    public bool inRange = false;
     public Canvas text;
     public Camera main;
     public Camera chat;
+    public NPC NPCScript;
 
-    public GameObject player1;
+    private Transform player;
+    private PlayerAction playerAction;
 
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player").GetComponent<Transform>();
+        player = GameObject.Find("Player").GetComponent<Transform>();
+        playerAction = player.GetComponent<PlayerAction>();
         text.gameObject.SetActive(false);
         chat.gameObject.SetActive(false);
     }
@@ -25,30 +26,32 @@ public class IfCloseToNPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, Player.position) < 6)
+        if (Vector3.Distance(transform.position, player.position) <= 6)
         {
-            inRange1 = true;
+            inRange = true;
             text.gameObject.SetActive(true);
+            playerAction.canAttack = false;
         }
-        else
+        else if (inRange && Vector3.Distance(transform.position, player.position) > 6)
         {
-            inRange1 = false;
+            inRange = false;
             text.gameObject.SetActive(false);
+            playerAction.canAttack = true;
         }
 
-        if (NPC.chatOn)
+        if (NPCScript.chatOn)
         {
             text.gameObject.SetActive(false);
             main.gameObject.SetActive(false);
             chat.gameObject.SetActive(true);
-            player1.GetComponent<PlayerMovement>().enabled = false;
+            player.gameObject.GetComponent<PlayerMovement>().enabled = false;
 
         }
         else
         {
             main.gameObject.SetActive(true);
-            chat.gameObject.SetActive(false); 
-            player1.GetComponent<PlayerMovement>().enabled = true;
+            chat.gameObject.SetActive(false);
+            player.gameObject.GetComponent<PlayerMovement>().enabled = true;
         }
        
     }

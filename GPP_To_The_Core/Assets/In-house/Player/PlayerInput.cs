@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public bool inputJump;
     [HideInInspector] public bool inputAction1;
     [HideInInspector] public bool inputAction2;
+    [HideInInspector] public bool inputAction3;
     [HideInInspector] public Vector2 inputAim;
     [HideInInspector] public float inputKBAimHorizontal;
     [HideInInspector] public float inputCtlrOnlyAim;
@@ -40,6 +41,7 @@ public class PlayerInput : MonoBehaviour
             inputJump = Input.GetButtonDown("Jump");
             inputAction1 = Input.GetButtonDown("Action 1");
             inputAction2 = Input.GetButtonDown("Action 2");
+            inputAction3 = Input.GetButtonDown("Action 3");
             inputRunSpeed = Input.GetAxisRaw("Run");
             inputSwitchCam = Input.GetButtonDown("Camera Mode Switch");
             inputRespawn = Input.GetButtonDown("Respawn");
@@ -89,6 +91,7 @@ public class PlayerInput : MonoBehaviour
         inputJump = false;
         inputAction1 = false;
         inputAction2 = false;
+        inputAction3 = false;
         inputAim = Vector2.zero;
         inputKBAimHorizontal = 0;
         inputCtlrOnlyAim = 0;
