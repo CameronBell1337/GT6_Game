@@ -23,16 +23,21 @@ public class Tutorial : MonoBehaviour
         {
             StartCoroutine(Walk());
         }
-        
-        if (Input.GetKey(KeyCode.LeftShift) )
+
+        if (counting == 1)
         {
-            if (Input.GetKey(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) ||
-                Input.GetKeyDown(KeyCode.D))
-            {
-                StartCoroutine(Run());
-            }
-            
+          if (Input.GetKey(KeyCode.LeftShift) )
+                  {
+                      if (Input.GetKey(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) ||
+                          Input.GetKeyDown(KeyCode.D))
+                      {
+                          StartCoroutine(Run());
+                      }
+                      
+                  }  
         }
+        
+        
     }
 
     IEnumerator Walk()

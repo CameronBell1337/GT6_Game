@@ -12,6 +12,8 @@ public class IfCloseToNPC : MonoBehaviour
     public Camera main;
     public Camera chat;
 
+    public GameObject player1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +41,14 @@ public class IfCloseToNPC : MonoBehaviour
             text.gameObject.SetActive(false);
             main.gameObject.SetActive(false);
             chat.gameObject.SetActive(true);
-            
+            player1.GetComponent<PlayerMovement>().enabled = false;
+
         }
         else
         {
             main.gameObject.SetActive(true);
             chat.gameObject.SetActive(false); 
+            player1.GetComponent<PlayerMovement>().enabled = true;
         }
        
     }

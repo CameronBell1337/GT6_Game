@@ -2775,6 +2775,7 @@ MonoBehaviour:
   text: {fileID: 229990113}
   main: {fileID: 349289102}
   chat: {fileID: 722354336}
+  player1: {fileID: 6477360346975462267}
 --- !u!136 &483503200
 CapsuleCollider:
   m_ObjectHideFlags: 0
