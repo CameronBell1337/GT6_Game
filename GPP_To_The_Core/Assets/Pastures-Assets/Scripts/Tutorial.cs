@@ -21,14 +21,7 @@ public class Tutorial : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) ||
             Input.GetKeyDown(KeyCode.D))
         {
-          
-            text.gameObject.SetActive(false);
-            if (counting < 1)
-            {
-              run.gameObject.SetActive(true);  
-              counting = 1 ;
-            }
-            
+            StartCoroutine(Walk());
         }
         
         if (Input.GetKey(KeyCode.LeftShift) )
@@ -36,9 +29,28 @@ public class Tutorial : MonoBehaviour
             if (Input.GetKey(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) ||
                 Input.GetKeyDown(KeyCode.D))
             {
-                run.gameObject.SetActive(false);
+                StartCoroutine(Run());
             }
             
         }
     }
+
+    IEnumerator Walk()
+    {
+        yield return new WaitForSeconds(3);
+        text.gameObject.SetActive(false);
+        if (counting < 1)
+        {
+            run.gameObject.SetActive(true);  
+            counting = 1 ;
+        }
+        
+    }
+    
+    IEnumerator Run()
+    {
+        yield return new WaitForSeconds(3);
+        run.gameObject.SetActive(false);
+    }
+
 }

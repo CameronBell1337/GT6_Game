@@ -20,8 +20,7 @@ public class AttackTriggerText : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && text.gameObject)
         {
-            text.gameObject.SetActive(false);
-            counting ++;
+            StartCoroutine(Attack());
         }
     }
 
@@ -31,5 +30,12 @@ public class AttackTriggerText : MonoBehaviour
         {
             text.gameObject.SetActive(true);
         }
+    }
+    
+    IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(3);
+        text.gameObject.SetActive(false);
+        counting ++;
     }
 }
