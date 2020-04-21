@@ -61,6 +61,9 @@
             <e p="IfCloseToNPC.cs" t="Include" />
             <e p="JumpTriggerText.cs" t="Include" />
             <e p="NPC.cs" t="Include" />
+            <e p="PowerUpCollect.cs" t="Include" />
+            <e p="PowerUpEffect.cs" t="Include" />
+            <e p="PowerUpUses.cs" t="Include" />
             <e p="Tutorial.cs" t="Include" />
           </e>
           <e p="Stylized Nature Environment" t="Include">
