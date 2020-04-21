@@ -39,6 +39,8 @@ public class PlayerStats : MonoBehaviour
 
             anim.SetBool("Dead", true);
             anim.SetTrigger("Died");
+
+            StartCoroutine(DeathDelay());
         }
 
         // Respawn
@@ -72,6 +74,23 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    private void Respawn()
+    {
+        health = maxHeath;
+
+        input.canInput = true;
+
+        input.respawnOverride = false;
+        if (anim.GetBool("Dead"))
+        {
+            anim.SetTrigger("Revived");
+        }
+        anim.SetBool("Dead", false);
+
+
+        transform.position = respawnPoint.currentCheckpoint;
+    }
+
     public void TakeDamage(Transform _enemy, float _damage)
     {
         if (health > 0)
@@ -80,5 +99,12 @@ public class PlayerStats : MonoBehaviour
 
             movementScript.KnockBack(_enemy);
         }
+    }
+
+    IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(2);
+        Respawn();
+
     }
 }
