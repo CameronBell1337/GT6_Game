@@ -6,12 +6,16 @@ using UnityEngine;
 public class PowerUpCollect : MonoBehaviour
 {
     public Canvas powerUpUses;
+    public Canvas powerUpPress;
 
     public static bool powerUpCollected = false;
+
+    private bool staysOff = false;
     // Start is called before the first frame update
     void Start()
     {
         powerUpUses.gameObject.SetActive(false);
+        powerUpPress.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,6 +29,12 @@ public class PowerUpCollect : MonoBehaviour
         if (PowerUpEffect.counting == 0)
         {
            StartCoroutine(Time()); 
+        }
+
+        if (powerUpCollected && !staysOff)
+        {
+            powerUpPress.gameObject.SetActive(true);
+            StartCoroutine(TimePress());
         }
         
     }
@@ -43,4 +53,12 @@ public class PowerUpCollect : MonoBehaviour
         yield return new WaitForSeconds(5);
         powerUpUses.gameObject.SetActive(false);
     }
+    
+    IEnumerator TimePress()
+    {
+        yield return new WaitForSeconds(10);
+        powerUpPress.gameObject.SetActive(false);
+        staysOff = true;
+    }
+    
 }
