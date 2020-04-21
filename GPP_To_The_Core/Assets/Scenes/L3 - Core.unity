@@ -30962,15 +30962,15 @@ MonoBehaviour:
   - {fileID: 323868154}
   - {fileID: 293068709}
   - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
-  - {fileID: 1857287219}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2022894403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31535,16 +31535,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1 V2
       objectReference: {fileID: 0}
-    - target: {fileID: -4290203373266343297, guid: 98cf183667a034740b9c3296699b83a9,
-        type: 3}
-      propertyPath: maxFallDistance
-      value: 0.2692887
-      objectReference: {fileID: 0}
-    - target: {fileID: -4290203373266343297, guid: 98cf183667a034740b9c3296699b83a9,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3244922734590637705, guid: 98cf183667a034740b9c3296699b83a9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31599,6 +31589,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4290203373266343297, guid: 98cf183667a034740b9c3296699b83a9,
+        type: 3}
+      propertyPath: maxFallDistance
+      value: 0.2692887
+      objectReference: {fileID: 0}
+    - target: {fileID: -4290203373266343297, guid: 98cf183667a034740b9c3296699b83a9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3244922734590471022, guid: 98cf183667a034740b9c3296699b83a9,
         type: 3}
