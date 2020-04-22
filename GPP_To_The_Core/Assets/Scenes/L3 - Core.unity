@@ -7196,9 +7196,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 418770653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b532e30028f2cfb4b957d5fe9a7465f2, type: 3}
+  m_Script: {fileID: 11500000, guid: e209e2acb70e7354bb3586ec2f13a7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints:
+  - {x: -47.16, y: 8.17, z: 29.75}
+  - {x: 65, y: 8.17, z: 60}
+  currentWaypoint: 0
+  platformCutscene: {fileID: 0}
+  triggerCol: {fileID: 418770659}
+  Animator: {fileID: 0}
+  smoothDamping: 0
+  platformSpeed: 30
+  delayTime: 0
+  autoStart: 1
 --- !u!65 &418770659
 BoxCollider:
   m_ObjectHideFlags: 0
