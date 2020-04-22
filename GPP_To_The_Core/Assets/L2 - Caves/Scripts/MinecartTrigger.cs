@@ -62,7 +62,7 @@ public class MinecartTrigger : MonoBehaviour
     {
         HandleUI();
 
-        if (Input.GetButtonDown("Action 1") && playerInRange && !trackController.active)
+        if (Input.GetButtonDown("Action 2") && playerInRange && !trackController.active)
         {
             if (player.transform.parent == null)
             {
