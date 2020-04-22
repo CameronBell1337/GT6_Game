@@ -37,11 +37,11 @@ public class WASDAndRunTutorial : MonoBehaviour
 
     IEnumerator Walk()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         text.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
 
         counting++;
 
@@ -50,7 +50,7 @@ public class WASDAndRunTutorial : MonoBehaviour
     
     IEnumerator Run()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         run.gameObject.SetActive(false);
     }
