@@ -28,7 +28,7 @@ public class SlimeMovement : MonoBehaviour
     void Update()
     {
         // Reset jump timer on landing
-        /*if (IsGrounded() && !justLanded)
+        if (IsGrounded() && !justLanded)
         {
             justLanded = true;
             jumpTimer = 0;
@@ -36,7 +36,7 @@ public class SlimeMovement : MonoBehaviour
         if (!IsGrounded())
         {
             justLanded = false;
-        }*/
+        }
 
         jumpTimer += Time.deltaTime;
 
@@ -84,7 +84,7 @@ public class SlimeMovement : MonoBehaviour
         }
     }
 
-    /*public bool IsGrounded()
+    public bool IsGrounded()
     {
         Vector3 offset = new Vector3(0, 0.05f, 0);
         Vector3 checkOrigin = transform.position + offset;
@@ -97,7 +97,7 @@ public class SlimeMovement : MonoBehaviour
         {
             return false;
         }
-    }*/
+    }
 
     public void Knockback()
     {
