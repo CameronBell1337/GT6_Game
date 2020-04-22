@@ -34,8 +34,8 @@ public class swordCutSceneScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            input.KillInput();
             input.canInput = false;
+            input.KillInput();
             player.SetActive(false);
             cameraManager.cutScene01Active = true;
             cutscenePlayer.SetActive(true);
@@ -51,13 +51,13 @@ public class swordCutSceneScript : MonoBehaviour
     {
         spawnPlayer();
         playableDirector.Play();
-        yield return new WaitForSeconds(12);
+        yield return new WaitForSeconds(10);
         sword.hasSword = true;
-        //playableDirector.Stop();
         cutscenePlayer.SetActive(false);
         player.SetActive(true);
         cameraManager.cutScene01Active = false;
         input.canInput = true;
+        playableDirector.Stop();
         Destroy(cutscenePlayer);
         Destroy(swordOBJ);
         Destroy(gameObject);
