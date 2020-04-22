@@ -98,6 +98,12 @@ public class TrackController : MonoBehaviour
         Vector3 rotation = path.GetRotationAtDistance(distanceTravelled).eulerAngles;
         rotation.z = 0;
         minecart.rotation = Quaternion.Euler(rotation);
+
+        player.transform.localPosition = Vector3.zero;
+
+        Vector3 playerRotation = Vector3.zero;
+        playerRotation.y = direction < 0 ? -180 : 0;
+        player.transform.localRotation = Quaternion.Euler(playerRotation);
     }
 
     private void MoveMinecart()
