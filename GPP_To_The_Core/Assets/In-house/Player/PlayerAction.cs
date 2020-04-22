@@ -274,7 +274,7 @@ public class PlayerAction : MonoBehaviour
         if (Physics.SphereCast(origin, col.radius * 0.9f, transform.forward, out RaycastHit hit, punchReach, enemyLayers))
         {
             RaycastHit[] allHits = Physics.SphereCastAll(origin, col.radius * 0.9f, transform.forward, punchReach, enemyLayers);
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             foreach (RaycastHit eachHit in allHits)
             {
                 eachHit.transform.GetComponent<EnemyAttackHandler>().DealDamage(punchDamage);

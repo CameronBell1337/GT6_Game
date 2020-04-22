@@ -55,14 +55,14 @@ public class cameraManager : MonoBehaviour
             mainVCamera.SetActive(true);
         }
 
-        if (cutScene01Active)
+        if (cutScene01Active && vCams.Length > 0)
         {
             vCams[0].SetActive(cutScene01Active);
             vCams[1].SetActive(cutScene01Active);
             vCams[2].SetActive(cutScene01Active);
             //mainVCamera.SetActive(false);
         }
-        else
+        else if(!anotherCameraActive && vCams.Length > 0)
         {
             //mainVCamera.SetActive(true);
             vCams[0].SetActive(cutScene01Active);
@@ -70,14 +70,15 @@ public class cameraManager : MonoBehaviour
             vCams[2].SetActive(cutScene01Active);
         }
 
-        if (cutScene02Active)
+        if (cutScene02Active && vCams.Length >= 3)
         {
             vCams[3].SetActive(cutScene02Active);
             vCams[4].SetActive(cutScene02Active);
             vCams[5].SetActive(cutScene02Active);
             //mainVCamera.SetActive(false);
         }
-        else
+        
+        if (!anotherCameraActive && vCams.Length >= 3)
         {
             //mainVCamera.SetActive(true);
             vCams[3].SetActive(cutScene02Active);
@@ -86,14 +87,14 @@ public class cameraManager : MonoBehaviour
 
         }
 
-        if (cutScene03Active)
+        if (cutScene03Active && vCams.Length >= 6)
         {
             vCams[6].SetActive(cutScene03Active);
             vCams[7].SetActive(cutScene03Active);
             vCams[8].SetActive(cutScene03Active);
             //mainVCamera.SetActive(false);
         }
-        else 
+        else if (!anotherCameraActive && vCams.Length >= 6)
         {
             //mainVCamera.SetActive(true);
             vCams[6].SetActive(cutScene03Active);
@@ -101,14 +102,14 @@ public class cameraManager : MonoBehaviour
             vCams[8].SetActive(cutScene03Active);
         }
 
-        if (cutScene04Active)
+        if (cutScene04Active && vCams.Length >= 9)
         {
             vCams[9].SetActive(cutScene04Active);
             vCams[10].SetActive(cutScene04Active);
             vCams[11].SetActive(cutScene04Active);
             //mainVCamera.SetActive(false);
         }
-        else
+        else if (!anotherCameraActive && vCams.Length >= 9)
         {
             //mainVCamera.SetActive(true);
             vCams[9].SetActive(cutScene04Active);
@@ -117,14 +118,14 @@ public class cameraManager : MonoBehaviour
 
         }
 
-        if (cutScene05Active)
+        if (cutScene05Active && vCams.Length >= 12)
         {
             vCams[12].SetActive(cutScene05Active);
             vCams[13].SetActive(cutScene05Active);
             vCams[14].SetActive(cutScene05Active);
             //mainVCamera.SetActive(false);
         }
-        else 
+        else if (!anotherCameraActive && vCams.Length >= 12)
         {
             //mainVCamera.SetActive(true);
             vCams[12].SetActive(cutScene05Active);
@@ -132,6 +133,8 @@ public class cameraManager : MonoBehaviour
             vCams[14].SetActive(cutScene05Active);
 
         }
+
+        
     }
     IEnumerator VCamDelay()
     {
