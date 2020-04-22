@@ -37,6 +37,7 @@ public class swordCutSceneScript : MonoBehaviour
             input.KillInput();
             input.canInput = false;
             player.SetActive(false);
+            cameraManager.cutScene01Active = true;
             cutscenePlayer.SetActive(true);
             StartCoroutine(Delay());
         }
@@ -53,8 +54,8 @@ public class swordCutSceneScript : MonoBehaviour
         yield return new WaitForSeconds(12);
         sword.hasSword = true;
         //playableDirector.Stop();
-        player.SetActive(true);
         cutscenePlayer.SetActive(false);
+        player.SetActive(true);
         cameraManager.cutScene01Active = false;
         input.canInput = true;
         Destroy(cutscenePlayer);
