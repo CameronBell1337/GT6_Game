@@ -90,20 +90,19 @@ public class TrackController : MonoBehaviour
     private void StopMinecart()
     {
         active = false;
-        direction *= -1;
         tiltPositionOffset = Vector3.zero;
         tiltRotationOffset = Vector3.zero;
 
         minecart.position = path.GetPointAtDistance(distanceTravelled);
         Vector3 rotation = path.GetRotationAtDistance(distanceTravelled).eulerAngles;
         rotation.z = 0;
+        rotation.y = direction < 0 ? rotation.y - 180 : rotation.y;
         minecart.rotation = Quaternion.Euler(rotation);
 
         player.transform.localPosition = Vector3.zero;
+        player.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
-        Vector3 playerRotation = Vector3.zero;
-        playerRotation.y = direction < 0 ? -180 : 0;
-        player.transform.localRotation = Quaternion.Euler(playerRotation);
+        direction *= -1;
     }
 
     private void MoveMinecart()
