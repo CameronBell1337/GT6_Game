@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public class LevelExitController : MonoBehaviour
 {
     public TrackController finalSpline;
-    public Animator sceneTransition;
-    public string sceneName;
 
     public bool has_key = false;
     bool inRange = false;
@@ -39,7 +37,7 @@ public class LevelExitController : MonoBehaviour
                 if (!ending)
                 {
                     ending = true;
-                    StartCoroutine(LoadScene());
+                    FindObjectOfType<SceneTransition>().LoadNextScene();
                 }
             }
             else
@@ -48,14 +46,5 @@ public class LevelExitController : MonoBehaviour
                 inRange = false;
             }
         }
-    }
-
-    IEnumerator LoadScene()
-    {
-        sceneTransition.SetTrigger("end");
-        
-        yield return new WaitForSeconds(1);
-
-        SceneManager.LoadScene(sceneName);
     }
 }
