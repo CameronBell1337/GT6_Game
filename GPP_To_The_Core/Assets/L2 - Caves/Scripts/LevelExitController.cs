@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelExitController : MonoBehaviour
 {
     public TrackController finalSpline;
+    public Animator sceneTransition;
+    public string sceneName;
 
-    [HideInInspector]
     public bool has_key = false;
     bool inRange = false;
+
+    bool ending = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,7 +36,11 @@ public class LevelExitController : MonoBehaviour
         {
             if (has_key)
             {
-                // TODO: EXIT LEVEL
+                if (!ending)
+                {
+                    ending = true;
+                    StartCoroutine(LoadScene());
+                }
             }
             else
             {
@@ -40,5 +48,14 @@ public class LevelExitController : MonoBehaviour
                 inRange = false;
             }
         }
+    }
+
+    IEnumerator LoadScene()
+    {
+        sceneTransition.SetTrigger("end");
+        
+        yield return new WaitForSeconds(1);
+
+        SceneManager.LoadScene(sceneName);
     }
 }
