@@ -8,6 +8,17 @@ public class Enemy : MonoBehaviour
     public float attackDamage = 0;
     public float moveSpeed = 0;
     public float rotateSpeed = 0;
+    public float knockbackUpForce = 0;
+    public float knockbackBackForce = 0;
+
+    private Rigidbody rb;
+    private Transform player;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     public void TakeDamage(float damage)
     {
@@ -17,6 +28,15 @@ public class Enemy : MonoBehaviour
         {
             Death();
         }
+
+        Knockback();
+    }
+
+    public void Knockback()
+    {
+        Vector3 dir = transform.up * knockbackUpForce + player.forward * knockbackBackForce;
+
+        rb.AddForce(dir, ForceMode.Impulse);
     }
 
     public virtual void Death()

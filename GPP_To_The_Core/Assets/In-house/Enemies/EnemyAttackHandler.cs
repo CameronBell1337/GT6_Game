@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAttackHandler : MonoBehaviour
 {
-    //Enemy scripts that handle damage
     private Enemy enemy;
 
     private void Start()
