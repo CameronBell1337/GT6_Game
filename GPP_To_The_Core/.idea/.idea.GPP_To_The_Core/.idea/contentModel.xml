@@ -12,6 +12,8 @@
             <e p="CameraMovement.cs" t="Include" />
           </e>
           <e p="Enemies" t="Include">
+            <e p="CaveSpider.cs" t="Include" />
+            <e p="Enemy.cs" t="Include" />
             <e p="EnemyAttackHandler.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
@@ -19,13 +21,89 @@
             <e p="PlayerInput.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
+            <e p="respawnCheckpoint.cs" t="Include" />
           </e>
         </e>
         <e p="L2 - Caves" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="CoinController.cs" t="Include" />
+            <e p="JunctionController.cs" t="Include" />
+            <e p="KeyPickup.cs" t="Include" />
+            <e p="LevelExitController.cs" t="Include" />
+            <e p="MagnetTrigger.cs" t="Include" />
+            <e p="MinecartTrigger.cs" t="Include" />
+            <e p="PowerUpCollect.cs" t="Include" />
+            <e p="TimerUI.cs" t="Include" />
+            <e p="TrackController.cs" t="Include" />
+            <e p="TutorialUIController.cs" t="Include" />
+          </e>
           <e p="Spline System" t="Include">
             <e p="CustomSplineEditorInspector.cs" t="Include" />
             <e p="SplineEditor.cs" t="Include" />
             <e p="TriggerVolumeTriggers.cs" t="Include" />
+          </e>
+        </e>
+        <e p="L3 - Core" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="ControllerScripts" t="Include">
+              <e p="cutScene1.cs" t="Include" />
+              <e p="doorController.cs" t="Include" />
+              <e p="enemyController.cs" t="Include" />
+              <e p="playerManager.cs" t="Include" />
+              <e p="splineMovementController.cs" t="Include" />
+              <e p="ThirdPersonCameraController.cs" t="Include" />
+              <e p="ThirdPersonCharacterController.cs" t="Include" />
+            </e>
+            <e p="platformScripts" t="Include">
+              <e p="movingPlatforms.cs" t="Include" />
+              <e p="parentToObject.cs" t="Include" />
+              <e p="platformCamTrigger1.cs" t="Include" />
+              <e p="platformCamTrigger2.cs" t="Include" />
+              <e p="platformCamTrigger3.cs" t="Include" />
+              <e p="platformSwitch.cs" t="Include" />
+              <e p="platformTrigger.cs" t="Include" />
+            </e>
+            <e p="powerUpScripts" t="Include">
+              <e p="doubleJumpPowerUP.cs" t="Include" />
+              <e p="powerUpRotation.cs" t="Include" />
+              <e p="speedBoostPowerUp.cs" t="Include" />
+            </e>
+            <e p="splineScripts" t="Include">
+              <e p="splineFollowPath.cs" t="Include" />
+              <e p="splineTrigger.cs" t="Include" />
+              <e p="splineTriggerEnd.cs" t="Include" />
+            </e>
+            <e p="txtScript.cs" t="Include" />
+          </e>
+        </e>
+        <e p="L3 - Pastures" t="Include">
+          <e p="BasicBandit" t="Include">
+            <e p="DemoSceneBasicBandit" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="ButtonFunction.cs" t="Include" />
+                <e p="MovementCamera.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="Billboard.cs" t="Include" />
+            <e p="HealthBar.cs" t="Include" />
+            <e p="IfCloseToNPC.cs" t="Include" />
+            <e p="JumpTutorial.cs" t="Include" />
+            <e p="NPC.cs" t="Include" />
+            <e p="PunchTutorial.cs" t="Include" />
+            <e p="WASDAndRunTutorial.cs" t="Include" />
+            <e p="WindPulseCollect.cs" t="Include" />
+            <e p="WindPulseEffect.cs" t="Include" />
+            <e p="WindPulseUses.cs" t="Include" />
+          </e>
+          <e p="Stylized Nature Environment" t="Include">
+            <e p="ReadMe.txt" t="Include" />
+          </e>
+          <e p="VertexColorFarmAnimals" t="Include">
+            <e p="Shaders" t="Include">
+              <e p="VertexColorUnlit.shader" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Packages" t="Include">
@@ -44,36 +122,10 @@
             </e>
           </e>
         </e>
-        <e p="Pastures-Assets" t="Include">
-          <e p="BasicBandit" t="Include">
-            <e p="DemoSceneBasicBandit" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="ButtonFunction.cs" t="Include" />
-                <e p="MovementCamera.cs" t="Include" />
-              </e>
-            </e>
-          </e>
-          <e p="Scripts" t="Include">
-            <e p="AttackTriggerText.cs" t="Include" />
-            <e p="Bilboard.cs" t="Include" />
-            <e p="HealtBar.cs" t="Include" />
-            <e p="HealthPlayer.cs" t="Include" />
-            <e p="IfCloseToNPC.cs" t="Include" />
-            <e p="JumpTriggerText.cs" t="Include" />
-            <e p="NPC.cs" t="Include" />
-            <e p="PowerUpCollect.cs" t="Include" />
-            <e p="PowerUpEffect.cs" t="Include" />
-            <e p="PowerUpUses.cs" t="Include" />
-            <e p="Tutorial.cs" t="Include" />
-          </e>
-          <e p="Stylized Nature Environment" t="Include">
-            <e p="ReadMe.txt" t="Include" />
-          </e>
-          <e p="VertexColorFarmAnimals" t="Include">
-            <e p="Shaders" t="Include">
-              <e p="VertexColorUnlit.shader" t="Include" />
-            </e>
-          </e>
+        <e p="SceneTransition.cs" t="Include" />
+        <e p="ScriptsTOUse" t="Include">
+          <e p="cameraManager.cs" t="Include" />
+          <e p="updateCheckpoint.cs" t="Include" />
         </e>
         <e p="Third Party" t="Include">
           <e p="Crystal_Mine" t="Include">
@@ -87,6 +139,48 @@
                 <e p="Mesh_Maker.cs" t="Include" />
                 <e p="Path_Comp.cs" t="Include" />
                 <e p="Trail_Mesh.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="PathCreator" t="Include">
+            <e p="Core" t="Include">
+              <e p="Editor" t="Include">
+                <e p="Helper" t="Include">
+                  <e p="MouseUtility.cs" t="Include" />
+                  <e p="PathHandle.cs" t="Include" />
+                  <e p="ScreenSpacePolyLine.cs" t="Include" />
+                </e>
+                <e p="PathEditor.cs" t="Include" />
+              </e>
+              <e p="Runtime" t="Include">
+                <e p="Objects" t="Include">
+                  <e p="BezierPath.cs" t="Include" />
+                  <e p="EndOfPathInstruction.cs" t="Include" />
+                  <e p="GlobalDisplaySettings.cs" t="Include" />
+                  <e p="MinMax3D.cs" t="Include" />
+                  <e p="PathCreator.cs" t="Include" />
+                  <e p="PathCreatorData.cs" t="Include" />
+                  <e p="PathSpace.cs" t="Include" />
+                  <e p="VertexPath.cs" t="Include" />
+                </e>
+                <e p="Utility" t="Include">
+                  <e p="CubicBezierUtility.cs" t="Include" />
+                  <e p="MathUtility.cs" t="Include" />
+                  <e p="VertexPathUtility.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="Examples" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="PathSceneToolEditor.cs" t="Include" />
+                </e>
+                <e p="GeneratePathExample.cs" t="Include" />
+                <e p="PathFollower.cs" t="Include" />
+                <e p="PathPlacer.cs" t="Include" />
+                <e p="PathSceneTool.cs" t="Include" />
+                <e p="PathSpawner.cs" t="Include" />
+                <e p="RoadMeshCreator.cs" t="Include" />
               </e>
             </e>
           </e>
@@ -212,6 +306,8 @@
       <e p="GPP_To_The_Core.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
+      <e p="PathCreator.csproj" t="IncludeRecursive" />
+      <e p="PathCreatorEditor.csproj" t="IncludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
   </component>
