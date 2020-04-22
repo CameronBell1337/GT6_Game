@@ -52,7 +52,7 @@ public class swordCutSceneScript : MonoBehaviour
         playableDirector.Play();
         yield return new WaitForSeconds(12);
         sword.hasSword = true;
-        playableDirector.Stop();
+        //playableDirector.Stop();
         player.SetActive(true);
         cutscenePlayer.SetActive(false);
         cameraManager.cutScene01Active = false;
