@@ -17,15 +17,7 @@ public class levelLoader : MonoBehaviour
     }
     public void LoadNextLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex == (2))
-        {
-            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 2));
-        }
-        else
-        {
-            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
-        }
-        
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
     IEnumerator LoadLevel(int levelIndex)
