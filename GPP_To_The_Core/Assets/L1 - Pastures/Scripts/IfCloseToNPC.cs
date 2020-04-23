@@ -44,14 +44,14 @@ public class IfCloseToNPC : MonoBehaviour
             text.gameObject.SetActive(false);
             main.gameObject.SetActive(false);
             chat.gameObject.SetActive(true);
-            player.gameObject.GetComponent<PlayerMovement>().enabled = false;
+            
 
         }
         else
         {
             main.gameObject.SetActive(true);
             chat.gameObject.SetActive(false);
-            player.gameObject.GetComponent<PlayerMovement>().enabled = true;
+            
         }
        
     }

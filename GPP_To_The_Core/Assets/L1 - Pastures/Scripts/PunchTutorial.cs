@@ -30,12 +30,20 @@ public class PunchTutorial : MonoBehaviour
         if (other.CompareTag("punchTutorialTrigger") && counting < 1)
         {
             text.gameObject.SetActive(true);
+            StartCoroutine(Attack2());
         }
     }
     
     IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.8f);
+        text.gameObject.SetActive(false);
+        counting++;
+    }
+
+    IEnumerator Attack2()
+    {
+        yield return new WaitForSeconds(6f);
         text.gameObject.SetActive(false);
         counting++;
     }

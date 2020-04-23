@@ -8,7 +8,7 @@ public class CoinController : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            // TODO: INCREASE PLAYER COIN COUNT
+            PlayerStats.coins++;
             Destroy(gameObject);
         }
     }

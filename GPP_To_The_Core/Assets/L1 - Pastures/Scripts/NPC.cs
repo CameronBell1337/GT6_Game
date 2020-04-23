@@ -61,6 +61,8 @@ public class NPC : MonoBehaviour
         {
             if (ifTooCloseScript.inRange && !inChat)
             {
+                playerInput.KillInput();
+                playerInput.canInput = false;
                 npcWindow.gameObject.SetActive(true);
                 chatText.GetComponent<Text>().text = greeting;
                 loadDialogue1();
@@ -69,6 +71,7 @@ public class NPC : MonoBehaviour
             else
             {
                 chatOn = false;
+                playerInput.canInput = true;
             }
         }
     }
@@ -166,5 +169,6 @@ public class NPC : MonoBehaviour
         npcWindow.gameObject.SetActive(false);
         inChat = false;
         chatOn = false;
+        playerInput.canInput = true;
     }
 }
