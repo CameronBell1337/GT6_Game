@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 563502922962915900}
   - component: {fileID: 469867330155438349}
   - component: {fileID: 469867330155438350}
-  - component: {fileID: 5353939761818273573}
+  - component: {fileID: 734302508148035846}
   - component: {fileID: 2364737569812399253}
   - component: {fileID: 6693188463680511204}
   m_Layer: 10
@@ -132,7 +132,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5320265, y: 1.7, z: 1.2689815}
   m_Center: {x: 0.00000006316612, y: 0.88, z: 0.11950259}
---- !u!114 &5353939761818273573
+--- !u!114 &734302508148035846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,11 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f53b8b526739c4d93eb9b45b95719f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 1e+13
   attackDamage: 0
   moveSpeed: 0
   rotateSpeed: 0
-  knockbackUpForce: 100
+  knockbackUpForce: 75
   knockbackBackForce: 100
 --- !u!114 &2364737569812399253
 MonoBehaviour:
