@@ -42,7 +42,10 @@ public class Enemy : MonoBehaviour
     {
         Vector3 dir = transform.up * knockbackUpForce + player.forward * knockbackBackForce;
 
-        rb.AddForce(dir, ForceMode.Impulse);
+        if (GetComponent<Rigidbody>() != null)
+        {
+            rb.AddForce(dir, ForceMode.Impulse);
+        }
     }
 
     public virtual void Death()
