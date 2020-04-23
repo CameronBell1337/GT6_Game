@@ -13,6 +13,7 @@ public class SlimeMovement : MonoBehaviour
     private Transform player;
     private float jumpTimer;
     private bool justLanded;
+    private float jumpRateRandom;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class SlimeMovement : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         jumpTimer = 0;
         justLanded = false;
+        jumpRateRandom = Random.Range(stats.jumpRate - 1.5f, stats.jumpRate + 1.5f);
     }
 
     void Update()
@@ -30,6 +32,8 @@ public class SlimeMovement : MonoBehaviour
         {
             justLanded = true;
             jumpTimer = 0;
+            jumpRateRandom = Random.Range(stats.jumpRate - 1.5f, stats.jumpRate + 1.5f);
+
         }
         if (!IsGrounded())
         {
@@ -38,7 +42,7 @@ public class SlimeMovement : MonoBehaviour
 
         jumpTimer += Time.deltaTime;
 
-        if (jumpTimer >= stats.jumpRate)
+        if (jumpTimer >= jumpRateRandom)
         {
             jumpTimer = 0;
 

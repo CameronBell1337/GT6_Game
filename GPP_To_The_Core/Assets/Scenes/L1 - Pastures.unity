@@ -30467,6 +30467,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 349289103}
+    - target: {fileID: 8680372789670037499, guid: cb99e857c3c36894dbdc7255e9ff40ce,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8680372789892929221, guid: cb99e857c3c36894dbdc7255e9ff40ce,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -30475,11 +30480,6 @@ PrefabInstance:
     - target: {fileID: 8680372789892929221, guid: cb99e857c3c36894dbdc7255e9ff40ce,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680372789670037499, guid: cb99e857c3c36894dbdc7255e9ff40ce,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8680372789725283297, guid: cb99e857c3c36894dbdc7255e9ff40ce,
@@ -66578,7 +66578,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1557543886}
   - component: {fileID: 1557543888}
-  - component: {fileID: 1557543887}
   m_Layer: 0
   m_Name: RPG-Character-Mesh
   m_TagString: Untagged
@@ -66600,18 +66599,6 @@ Transform:
   m_Father: {fileID: 1995582196}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1557543887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557543885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa3f3e5d851405245911698684cae0ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!137 &1557543888
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -67959,7 +67946,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 832790471}
   animator: {fileID: 6477360346968166673}
-  sword: {fileID: 6477360346975462268}
   cameraManager: {fileID: 349289104}
   player: {fileID: 6477360346975462267}
   cutscenePlayer: {fileID: 1995582192}
@@ -77691,7 +77677,6 @@ GameObject:
   - component: {fileID: 1995582193}
   - component: {fileID: 1995582195}
   - component: {fileID: 1995582194}
-  - component: {fileID: 1995582197}
   m_Layer: 0
   m_Name: cutscenePlayer
   m_TagString: Untagged
@@ -77773,23 +77758,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -15.224001, z: 0}
---- !u!114 &1995582197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995582192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830d410796b95da43b878f44473c02e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  hasSword: 0
-  respawnPoint: {fileID: 0}
-  maxHeath: 100
-  sheathedSword: {fileID: 0}
 --- !u!1001 &1995752294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117506,8 +117474,8 @@ GameObject:
   - component: {fileID: 6477360346968166673}
   - component: {fileID: 6477360346975462271}
   - component: {fileID: 6477360346975462270}
-  - component: {fileID: 6477360346975462272}
   - component: {fileID: 6477360346975462268}
+  - component: {fileID: 6477360346975462272}
   - component: {fileID: 6477360346975462274}
   - component: {fileID: 6477360346975462273}
   - component: {fileID: 6477360346975462276}
@@ -117532,13 +117500,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6477360346975462267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830d410796b95da43b878f44473c02e3, type: 3}
+  m_Script: {fileID: 11500000, guid: ec98360682044cc40a6330ee6977bd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  hasSword: 0
   respawnPoint: {fileID: 0}
-  maxHeath: 100
   sheathedSword: {fileID: 776263435650659119}
 --- !u!1 &6477360346975462269
 GameObject:
@@ -117550,7 +117515,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6477360346975436445}
   - component: {fileID: 6477360346972352465}
-  - component: {fileID: 6477360346975462275}
   m_Layer: 9
   m_Name: RPG-Character-Mesh
   m_TagString: Untagged
@@ -117678,18 +117642,6 @@ MonoBehaviour:
   isRunningJump: 0
   movementSpeedMultiplier: 0
   animationOverride: 0
---- !u!114 &6477360346975462275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6477360346975462269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa3f3e5d851405245911698684cae0ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6477360346975462276
 MonoBehaviour:
   m_ObjectHideFlags: 0

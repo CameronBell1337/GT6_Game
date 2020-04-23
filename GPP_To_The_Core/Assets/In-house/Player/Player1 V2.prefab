@@ -49365,8 +49365,8 @@ GameObject:
   - component: {fileID: 3244922734581111043}
   - component: {fileID: 3244922734590471021}
   - component: {fileID: 3244922734590471020}
+  - component: {fileID: 3156380735267345823}
   - component: {fileID: 3244922734590471058}
-  - component: {fileID: 3244922734590471022}
   - component: {fileID: 3244922734590471056}
   - component: {fileID: 3244922734590471059}
   - component: {fileID: -4290203373266343297}
@@ -49452,6 +49452,20 @@ CapsuleCollider:
   m_Height: 2.6
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!114 &3156380735267345823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3244922734590471017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec98360682044cc40a6330ee6977bd0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 0}
+  sheathedSword: {fileID: 9090985998512438077}
 --- !u!114 &3244922734590471058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49467,6 +49481,7 @@ MonoBehaviour:
   inputJump: 0
   inputAction1: 0
   inputAction2: 0
+  inputAction3: 0
   inputAim: {x: 0, y: 0}
   inputKBAimHorizontal: 0
   inputCtlrOnlyAim: 0
@@ -49479,23 +49494,6 @@ MonoBehaviour:
   movementLockedToHorizontal: 0
   respawnOverride: 0
   aimControllerMultiplier: 9
---- !u!114 &3244922734590471022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3244922734590471017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830d410796b95da43b878f44473c02e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  hasSword: 0
-  respawnPoint: {fileID: 0}
-  maxHeath: 100
-  sheathedSword: {fileID: 9090985998512438077}
 --- !u!114 &3244922734590471056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49544,17 +49542,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bab96f07d14148a00b351e4bdc0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchDamage: 5
+  punchDamage: 10
   punchReach: 2.5
   punchChainWindowStart: 0.4
   punchChainWindowEnd: 0.7
-  swordDamage: 2
+  swordDamage: 20
   swordAutoSheathTime: 8
   swordSwingChainWindowStart: 0.2
   swordSwingChainWindowEnd: 1
   enemyLayers:
     serializedVersion: 2
     m_Bits: 1024
+  canAttack: 0
   sheathedSword: {fileID: 9090985998512438077}
   armedSword: {fileID: 8425246314480269441}
 --- !u!114 &-4290203373266343297

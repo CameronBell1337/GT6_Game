@@ -75,7 +75,7 @@ public class CaveSpider : Enemy
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerStats>().TakeDamage(transform, attackDamage);
+            other.GetComponent<PlayerCoreFunctions>().TakeDamage(transform, attackDamage);
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
@@ -92,7 +92,7 @@ public class CaveSpider : Enemy
             if (attackTimer > attackDelay)
             {
                 attackTimer = 0;
-                other.GetComponent<PlayerStats>().TakeDamage(transform, attackDamage);
+                other.GetComponent<PlayerCoreFunctions>().TakeDamage(transform, attackDamage);
             }
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Default"))

@@ -9,16 +9,9 @@ public class HealthBar : MonoBehaviour
     public Gradient gradient;
     public Image fill;
 
-    private PlayerStats stats;
-
-    void Start()
-    {
-        stats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-    }
-
     void Update()
     {
-        SetHealth(stats.health);
+        SetHealth(PlayerStats.health);
     }
     
     public void SetHealth(float health)

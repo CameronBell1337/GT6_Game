@@ -8,8 +8,7 @@ public class swordCutSceneScript : MonoBehaviour
     // Start is called before the first frame update
     public PlayableDirector playableDirector;
     public Animator animator;
-
-    public PlayerStats sword;
+    
     public cameraManager cameraManager;
 
     public GameObject player;
@@ -26,7 +25,6 @@ public class swordCutSceneScript : MonoBehaviour
         cutscenePlayer.SetActive(false);
         input = FindObjectOfType<PlayerInput>();
         cameraManager = FindObjectOfType<cameraManager>();
-        sword = FindObjectOfType<PlayerStats>();
         swordTutorial = GameObject.FindGameObjectWithTag("Player").GetComponent<SwordTutorial>();
     }
 
@@ -52,7 +50,7 @@ public class swordCutSceneScript : MonoBehaviour
         spawnPlayer();
         playableDirector.Play();
         yield return new WaitForSeconds(10);
-        sword.hasSword = true;
+        PlayerStats.hasSword = true;
         cutscenePlayer.SetActive(false);
         player.SetActive(true);
         cameraManager.cutScene01Active = false;

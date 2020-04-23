@@ -21,7 +21,6 @@ public class PlayerAction : MonoBehaviour
     private Animator anim;
     private CapsuleCollider col;
     private PlayerInput inputScript;
-    private PlayerStats stats;
     private Collider swordHitArea;
     private Camera mainCamera;
     private Attacks lastAttack;
@@ -50,7 +49,6 @@ public class PlayerAction : MonoBehaviour
         anim = GetComponent<Animator>();
         col = GetComponent<CapsuleCollider>();
         inputScript = GetComponent<PlayerInput>();
-        stats = GetComponent<PlayerStats>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         lastAttack = Attacks.noAttack;
         punchTimer = 0;
@@ -67,7 +65,7 @@ public class PlayerAction : MonoBehaviour
             Attack();
         }
 
-        if (inputScript.inputAction2 && !anim.GetBool("SwappingWeapon") && stats.hasSword)
+        if (inputScript.inputAction2 && !anim.GetBool("SwappingWeapon") && PlayerStats.hasSword)
         {
             // Swap weapons
             lastAttack = Attacks.noAttack;

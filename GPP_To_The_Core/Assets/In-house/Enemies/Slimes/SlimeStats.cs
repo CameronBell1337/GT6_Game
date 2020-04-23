@@ -37,7 +37,7 @@ public class SlimeStats : MonoBehaviour
     {
         if (collision.transform == player)
         {
-            player.GetComponent<PlayerStats>().TakeDamage(transform, enemyScript.attackDamage);
+            player.GetComponent<PlayerCoreFunctions>().TakeDamage(transform, enemyScript.attackDamage);
         }
     }
 }
