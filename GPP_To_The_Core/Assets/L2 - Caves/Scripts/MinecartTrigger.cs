@@ -13,9 +13,8 @@ public class MinecartTrigger : MonoBehaviour
     public Transform playerPositionTarget;
     public Transform playerExitPosition;
 
-    [Header("UI Objects")]
+    [Header("UI")]
     public CanvasGroup getInUI;
-    public CanvasGroup getOutUI;
 
     bool playerInRange = false;
 
@@ -37,7 +36,6 @@ public class MinecartTrigger : MonoBehaviour
         minecartAnimator = GetComponent<Animator>();
 
         getInUI.alpha = 0;
-        getOutUI.alpha = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -54,7 +52,6 @@ public class MinecartTrigger : MonoBehaviour
         {
             playerInRange = false;
             getInUI.alpha = 0;
-            getOutUI.alpha = 0;
         }
     }
 
@@ -62,27 +59,15 @@ public class MinecartTrigger : MonoBehaviour
     {
         HandleUI();
 
-        if (Input.GetButtonDown("Action 2") && playerInRange && !trackController.active)
+        if (Input.GetButtonDown("Action 2") && playerInRange && !trackController.active && player.transform.parent == null)
         {
-            if (player.transform.parent == null)
-            {
-                trackController.active = true;
-                trackController.DisableColliders();
-                player.transform.position = playerPositionTarget.position;
-                player.transform.parent = transform;
-                player.GetComponent<PlayerInput>().canInput = false;
-                player.GetComponent<PlayerInput>().KillInput();
-                setCamera();
-            }
-            else
-            {
-                trackController.EnableColliders();
-                player.transform.parent = null;
-                player.transform.position = playerExitPosition.position;
-                player.GetComponent<PlayerInput>().canInput = true;
-
-                resetCamera();
-            }
+            trackController.active = true;
+            trackController.DisableColliders();
+            player.transform.position = playerPositionTarget.position;
+            player.transform.parent = transform;
+            player.GetComponent<PlayerInput>().canInput = false;
+            player.GetComponent<PlayerInput>().KillInput();
+            setCamera();
         }
 
         if (trackController.active)
@@ -118,13 +103,11 @@ public class MinecartTrigger : MonoBehaviour
             if (player.transform.parent == null)
             {
                 UIFadeIn(getInUI);
-                UIFadeOut(getOutUI);
                 return;
             }
             // IN MINECART
             else
             {
-                UIFadeIn(getOutUI);
                 UIFadeOut(getInUI);
                 return;
             }
@@ -133,7 +116,6 @@ public class MinecartTrigger : MonoBehaviour
         if (trackController.active)
         {
             UIFadeOut(getInUI);
-            UIFadeOut(getOutUI);
         }
     }
 
@@ -169,5 +151,15 @@ public class MinecartTrigger : MonoBehaviour
     void resetCamera()
     {
         camManager.cutScene01Active = false;
+    }
+
+    public void ejectPlayer()
+    {
+        trackController.EnableColliders();
+        player.transform.parent = null;
+        player.transform.position = playerExitPosition.position;
+        player.GetComponent<PlayerInput>().canInput = true;
+
+        resetCamera();
     }
 }
