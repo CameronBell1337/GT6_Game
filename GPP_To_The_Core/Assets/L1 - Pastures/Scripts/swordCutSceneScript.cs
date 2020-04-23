@@ -18,17 +18,17 @@ public class swordCutSceneScript : MonoBehaviour
     public PlayerInput input;
 
     public Vector3 newPos;
+
+    private SwordTutorial swordTutorial;
+
     void Start()
     {
         cutscenePlayer.SetActive(false);
         input = FindObjectOfType<PlayerInput>();
         cameraManager = FindObjectOfType<cameraManager>();
         sword = FindObjectOfType<PlayerStats>();
+        swordTutorial = GameObject.FindGameObjectWithTag("Player").GetComponent<SwordTutorial>();
     }
-
-    
-
-    
 
     void OnTriggerEnter(Collider other)
     {
@@ -61,6 +61,7 @@ public class swordCutSceneScript : MonoBehaviour
         Destroy(cutscenePlayer);
         Destroy(swordOBJ);
         Destroy(gameObject);
+        swordTutorial.text.gameObject.SetActive(true);
     }
 
     

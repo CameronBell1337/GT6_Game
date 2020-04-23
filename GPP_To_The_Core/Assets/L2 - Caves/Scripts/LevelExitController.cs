@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 public class LevelExitController : MonoBehaviour
 {
     public TrackController finalSpline;
+    public levelLoader transition;
 
     public bool has_key = false;
     bool inRange = false;
 
     bool ending = false;
 
+    void Start()
+    {
+        transition = FindObjectOfType<levelLoader>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Player"))
@@ -34,6 +39,7 @@ public class LevelExitController : MonoBehaviour
         {
             if (has_key)
             {
+                transition.LoadNextLevel();
                 if (!ending)
                 {
                     ending = true;
