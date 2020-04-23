@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 6863712239260400098}
   - component: {fileID: 6863712239260400096}
   - component: {fileID: 6863712239260400097}
+  - component: {fileID: 1018314576569188925}
+  - component: {fileID: 8038887273496075609}
+  - component: {fileID: 2076494494260676231}
+  - component: {fileID: 2989000728314765711}
   m_Layer: 12
   m_Name: Slime Medium
   m_TagString: Slime
@@ -62,6 +66,71 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &1018314576569188925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863712239260400099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f53b8b526739c4d93eb9b45b95719f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 30
+  attackDamage: 30
+  moveSpeed: 0
+  rotateSpeed: 0
+  knockbackUpForce: 4.5
+  knockbackBackForce: 8.5
+--- !u!114 &8038887273496075609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863712239260400099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6ec2b099b702246b3921790896aa3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2076494494260676231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863712239260400099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4889a681da4185a499301cb097df3cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpRate: 3.7
+  spawnsMoreOnDeath: 1
+  numberToSpawnOnDeath: 3
+  spawnSpreadDistanceOnDeath: 2.1
+  slimeToSpawnOnDeath: {fileID: 1946491534552512407, guid: 1f07d2fc0b916ad45a8f9e5ff1d1877a,
+    type: 3}
+--- !u!114 &2989000728314765711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863712239260400099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e358e68c3dfc1934aacb66ee0f45a59c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 12
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1537
+  detectionRange: 15
 --- !u!1 &6863712240063788521
 GameObject:
   m_ObjectHideFlags: 0

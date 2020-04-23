@@ -27,6 +27,12 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Death();
+
+            if (GetComponent<SlimeStats>() != null)
+            {
+                SlimeStats stats = GetComponent<SlimeStats>();
+                stats.spawnMoreOnDeath();
+            }
         }
 
         Knockback();

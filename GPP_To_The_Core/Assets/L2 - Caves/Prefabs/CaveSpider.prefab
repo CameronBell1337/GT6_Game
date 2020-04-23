@@ -2060,10 +2060,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9419890a5e5834b841dd06bab72022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  attackDamage: 5
+  health: 30
+  attackDamage: 20
   moveSpeed: 150
   rotateSpeed: 5
+  knockbackUpForce: 0
+  knockbackBackForce: 0
   patrolArea: {fileID: 0}
   sightRadius: 5
   jumpForce: 5

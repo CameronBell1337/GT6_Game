@@ -9,7 +9,7 @@ public class MagnetTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player1 V2").GetComponent<Transform>();
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     // Update is called once per frame

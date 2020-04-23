@@ -330,6 +330,8 @@ GameObject:
   - component: {fileID: 8417597873251367582}
   - component: {fileID: 6519366466228858885}
   - component: {fileID: 4192916421710904014}
+  - component: {fileID: 7256787710900734636}
+  - component: {fileID: 7670864918469399079}
   m_Layer: 12
   m_Name: Slime Large
   m_TagString: Slime
@@ -393,10 +395,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f53b8b526739c4d93eb9b45b95719f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  attackDamage: 0
+  health: 60
+  attackDamage: 30
   moveSpeed: 0
   rotateSpeed: 0
+  knockbackUpForce: 5
+  knockbackBackForce: 10
 --- !u!114 &4192916421710904014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +413,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6ec2b099b702246b3921790896aa3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7256787710900734636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417597873251367580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4889a681da4185a499301cb097df3cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpRate: 4.2
+  spawnsMoreOnDeath: 1
+  numberToSpawnOnDeath: 2
+  spawnSpreadDistanceOnDeath: 3.5
+  slimeToSpawnOnDeath: {fileID: 1946491534552512407, guid: 1f07d2fc0b916ad45a8f9e5ff1d1877a,
+    type: 3}
+--- !u!114 &7670864918469399079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417597873251367580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e358e68c3dfc1934aacb66ee0f45a59c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 14
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1537
+  detectionRange: 20
 --- !u!1 &8417597873448285421
 GameObject:
   m_ObjectHideFlags: 0
