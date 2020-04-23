@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCoreFunctions : MonoBehaviour
 {
@@ -68,6 +69,11 @@ public class PlayerCoreFunctions : MonoBehaviour
         {
             hasSwordEquipped = false;
             sheathedSword.SetActive(false);
+        }
+
+        if (SceneManager.GetActiveScene().name != "L4 - End Scene")
+        {
+            PlayerStats.timer += Time.deltaTime;
         }
     }
 
