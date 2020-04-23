@@ -22,7 +22,7 @@ public class SceneTransition : MonoBehaviour
     {
         sceneTransition.SetTrigger("end");
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(4);
 
         SceneManager.LoadScene(sceneName);
     }
