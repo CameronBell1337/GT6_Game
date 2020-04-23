@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8417597872070611377}
   - component: {fileID: 8417597872070611380}
   - component: {fileID: 8417597872070611379}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Left Eye Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 8417597872319115604}
   - component: {fileID: 8417597872319115607}
   - component: {fileID: 8417597872319115606}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Mouth Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 8417597872384514770}
   - component: {fileID: 8417597872384514773}
   - component: {fileID: 8417597872384514772}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Inner Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 8417597872523093843}
   - component: {fileID: 8417597872523093846}
   - component: {fileID: 8417597872523093845}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Outer Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,9 @@ GameObject:
   - component: {fileID: 8417597873251367582}
   - component: {fileID: 6519366466228858885}
   - component: {fileID: 4192916421710904014}
-  m_Layer: 12
+  - component: {fileID: 558807712114283898}
+  - component: {fileID: 7150240383042121800}
+  m_Layer: 10
   m_Name: Slime Large
   m_TagString: Slime
   m_Icon: {fileID: 0}
@@ -393,10 +395,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f53b8b526739c4d93eb9b45b95719f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  attackDamage: 0
+  health: 60
+  attackDamage: 30
   moveSpeed: 0
   rotateSpeed: 0
+  knockbackUpForce: 5
+  knockbackBackForce: 10
 --- !u!114 &4192916421710904014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +413,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6ec2b099b702246b3921790896aa3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &558807712114283898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417597873251367580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4889a681da4185a499301cb097df3cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpRate: 4.2
+  spawnsMoreOnDeath: 1
+  numberToSpawnOnDeath: 2
+  spawnSpreadDistanceOnDeath: 3.5
+  slimeToSpawnOnDeath: {fileID: 6863712239260400099, guid: 9bb4ca8fa9327bb4f96b051a9ade15f4,
+    type: 3}
+--- !u!114 &7150240383042121800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417597873251367580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e358e68c3dfc1934aacb66ee0f45a59c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 14
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1537
+  detectionRange: 20
 --- !u!1 &8417597873448285421
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +459,7 @@ GameObject:
   - component: {fileID: 8417597873448285422}
   - component: {fileID: 8417597873448285425}
   - component: {fileID: 8417597873448285424}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Right Eye Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +537,7 @@ GameObject:
   - component: {fileID: 8417597873518442135}
   - component: {fileID: 8417597873518442138}
   - component: {fileID: 8417597873518442137}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Middle Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

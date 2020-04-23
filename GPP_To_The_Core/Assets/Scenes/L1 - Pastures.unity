@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -30362,6 +30362,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 349289103}
+    - target: {fileID: 8680372789670037499, guid: cb99e857c3c36894dbdc7255e9ff40ce,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8680372789892929221, guid: cb99e857c3c36894dbdc7255e9ff40ce,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -30370,11 +30375,6 @@ PrefabInstance:
     - target: {fileID: 8680372789892929221, guid: cb99e857c3c36894dbdc7255e9ff40ce,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680372789670037499, guid: cb99e857c3c36894dbdc7255e9ff40ce,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8680372789725283297, guid: cb99e857c3c36894dbdc7255e9ff40ce,
@@ -117079,11 +117079,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bab96f07d14148a00b351e4bdc0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchDamage: 0
+  punchDamage: 10
   punchReach: 2.2
   punchChainWindowStart: 0.4
   punchChainWindowEnd: 0.7
-  swordDamage: 5
+  swordDamage: 20
   swordAutoSheathTime: 8
   swordSwingChainWindowStart: 0.2
   swordSwingChainWindowEnd: 1

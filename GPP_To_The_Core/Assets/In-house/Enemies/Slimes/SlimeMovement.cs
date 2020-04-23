@@ -9,20 +9,18 @@ public class SlimeMovement : MonoBehaviour
     public float detectionRange;
 
     private SlimeStats stats;
-    private EnemyActiveAreaHandler activeAreaHandler;
     private Rigidbody rb;
     private Transform player;
     private float jumpTimer;
-    //private bool justLanded;
+    private bool justLanded;
 
     void Start()
     {
         stats = GetComponent<SlimeStats>();
-        activeAreaHandler = GetComponent<EnemyActiveAreaHandler>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         jumpTimer = 0;
-        //justLanded = false;
+        justLanded = false;
     }
 
     void Update()
@@ -64,23 +62,9 @@ public class SlimeMovement : MonoBehaviour
 
                 jumpDir = transform.up * jumpForce + transform.forward * jumpForce * 0.53f;
             }
-
-            if (activeAreaHandler.hasActiveArea)
-            {
-                // Test if predicted landing position is within the enemy active area
-                Vector3 predictPos = transform.position + transform.forward * jumpForce * 0.25f;
-
-                Collider enemyActiveAreaCol = activeAreaHandler.enemyActiveArea.GetComponent<Collider>();
-
-                if (enemyActiveAreaCol.bounds.Contains(predictPos))
-                {
-                    rb.AddForce(jumpDir, ForceMode.Impulse);
-                }
-            }
-            else
-            {
-                rb.AddForce(jumpDir, ForceMode.Impulse);
-            }
+            
+            // Jump in predetermined direction^
+            rb.AddForce(jumpDir, ForceMode.Impulse);
         }
     }
 
@@ -97,12 +81,5 @@ public class SlimeMovement : MonoBehaviour
         {
             return false;
         }
-    }
-
-    public void Knockback()
-    {
-        Vector3 dir = transform.up * jumpForce * 0.40f + player.forward * jumpForce * 0.26f;
-
-        rb.AddForce(dir, ForceMode.Impulse);
     }
 }
