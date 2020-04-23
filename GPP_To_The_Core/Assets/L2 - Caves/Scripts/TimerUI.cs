@@ -10,23 +10,26 @@ public class TimerUI : MonoBehaviour
     public Text countdownText;
 
     public Text text;
-    // Start is called before the first frame update
+
+    private PowerUpCollect collectScript;
+
     void Start()
     {
         currentTime = startingTime;
         countdownText.gameObject.SetActive(false);
         text.gameObject.SetActive(false);
+        collectScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpCollect>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PowerUpCollect.isMagnet)
+        if (collectScript.isMagnet)
         {
             countdownText.gameObject.SetActive(true);
             text.gameObject.SetActive(true);
             currentTime -= 1 * Time.deltaTime;
-            countdownText.text = currentTime.ToString("0");  
+            countdownText.text = currentTime.ToString("0");
             
         }else if(currentTime <= 0)
         {

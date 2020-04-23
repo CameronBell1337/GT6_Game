@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class PowerUpCollect : MonoBehaviour
 {
-    public static bool isMagnet = false;
-    // Start is called before the first frame update
+    public bool isMagnet = false;
+    
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         
