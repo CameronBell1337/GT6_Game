@@ -7,6 +7,6 @@ public class TimerCounterUI : MonoBehaviour
 {
     void Update()
     {
-        GetComponent<Text>().text = ((int)(PlayerStats.timer / 60)).ToString() + " minutes " + (PlayerStats.timer % 60).ToString() + " seconds";
+        GetComponent<Text>().text = ((int)(PlayerStats.timer / 60)).ToString() + " minutes " + ((int)(PlayerStats.timer % 60)).ToString() + " seconds";
     }
 }

@@ -8,5 +8,5 @@ public static class PlayerStats
     public static bool hasSword = false;
     public static float maxHeath = 100;
     public static int coins = 0;
-    public static float timer = 65;
+    public static float timer = 0;
 }
