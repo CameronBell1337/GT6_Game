@@ -21013,6 +21013,7 @@ MonoBehaviour:
   cutScene03Active: 0
   cutScene04Active: 0
   cutScene05Active: 0
+  player: {fileID: 722933287}
   mainVCamera: {fileID: 1402212390}
   vCams:
   - {fileID: 2014579253}

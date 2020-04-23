@@ -12,6 +12,7 @@ public class cameraManager : MonoBehaviour
     public bool cutScene04Active;
     public bool cutScene05Active;
 
+    public GameObject player;
     private bool anotherCameraActive;
 
     public GameObject mainVCamera;
@@ -20,6 +21,8 @@ public class cameraManager : MonoBehaviour
     void Start()
     {
         //mainVCamera.SetActive(true);
+
+        player = GameObject.FindGameObjectWithTag("Player");
 
         anotherCameraActive = false;
 
@@ -47,11 +50,13 @@ public class cameraManager : MonoBehaviour
     {
         if(anotherCameraActive)
         {
+            //StartCoroutine(VCamDelay());
             mainVCamera.SetActive(false);
         }
         
         if(!anotherCameraActive)
         {
+            //StartCoroutine(VCamDelay());
             mainVCamera.SetActive(true);
         }
 
@@ -64,7 +69,7 @@ public class cameraManager : MonoBehaviour
         }
         else if(!anotherCameraActive && vCams.Length > 0)
         {
-            //mainVCamera.SetActive(true);
+            //StartCoroutine(VCamDelay());
             vCams[0].SetActive(cutScene01Active);
             vCams[1].SetActive(cutScene01Active);
             vCams[2].SetActive(cutScene01Active);
@@ -77,10 +82,9 @@ public class cameraManager : MonoBehaviour
             vCams[5].SetActive(cutScene02Active);
             //mainVCamera.SetActive(false);
         }
-        
-        if (!anotherCameraActive && vCams.Length >= 3)
+        else if (!anotherCameraActive && vCams.Length >= 3)
         {
-            //mainVCamera.SetActive(true);
+            //StartCoroutine(VCamDelay());
             vCams[3].SetActive(cutScene02Active);
             vCams[4].SetActive(cutScene02Active);
             vCams[5].SetActive(cutScene02Active);
@@ -96,7 +100,7 @@ public class cameraManager : MonoBehaviour
         }
         else if (!anotherCameraActive && vCams.Length >= 6)
         {
-            //mainVCamera.SetActive(true);
+            //StartCoroutine(VCamDelay());
             vCams[6].SetActive(cutScene03Active);
             vCams[7].SetActive(cutScene03Active);
             vCams[8].SetActive(cutScene03Active);
@@ -111,7 +115,7 @@ public class cameraManager : MonoBehaviour
         }
         else if (!anotherCameraActive && vCams.Length >= 9)
         {
-            //mainVCamera.SetActive(true);
+            //StartCoroutine(VCamDelay());
             vCams[9].SetActive(cutScene04Active);
             vCams[10].SetActive(cutScene04Active);
             vCams[11].SetActive(cutScene04Active);
@@ -127,7 +131,7 @@ public class cameraManager : MonoBehaviour
         }
         else if (!anotherCameraActive && vCams.Length >= 12)
         {
-            //mainVCamera.SetActive(true);
+            //StartCoroutine(VCamDelay());
             vCams[12].SetActive(cutScene05Active);
             vCams[13].SetActive(cutScene05Active);
             vCams[14].SetActive(cutScene05Active);
@@ -138,7 +142,8 @@ public class cameraManager : MonoBehaviour
     }
     IEnumerator VCamDelay()
     {
+        player.GetComponent<PlayerInput>().canAim = false;
         yield return new WaitForSeconds(1);
-        mainVCamera.SetActive(false);
+        player.GetComponent<PlayerInput>().canAim = true;
     }
 }
