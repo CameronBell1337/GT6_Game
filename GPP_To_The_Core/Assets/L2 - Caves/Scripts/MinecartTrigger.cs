@@ -13,9 +13,8 @@ public class MinecartTrigger : MonoBehaviour
     public Transform playerPositionTarget;
     public Transform playerExitPosition;
 
-    [Header("UI Objects")]
+    [Header("UI")]
     public CanvasGroup getInUI;
-    public CanvasGroup getOutUI;
 
     bool playerInRange = false;
 
@@ -37,7 +36,6 @@ public class MinecartTrigger : MonoBehaviour
         minecartAnimator = GetComponent<Animator>();
 
         getInUI.alpha = 0;
-        getOutUI.alpha = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -54,7 +52,6 @@ public class MinecartTrigger : MonoBehaviour
         {
             playerInRange = false;
             getInUI.alpha = 0;
-            getOutUI.alpha = 0;
         }
     }
 
@@ -106,13 +103,11 @@ public class MinecartTrigger : MonoBehaviour
             if (player.transform.parent == null)
             {
                 UIFadeIn(getInUI);
-                UIFadeOut(getOutUI);
                 return;
             }
             // IN MINECART
             else
             {
-                UIFadeIn(getOutUI);
                 UIFadeOut(getInUI);
                 return;
             }
@@ -121,7 +116,6 @@ public class MinecartTrigger : MonoBehaviour
         if (trackController.active)
         {
             UIFadeOut(getInUI);
-            UIFadeOut(getOutUI);
         }
     }
 
