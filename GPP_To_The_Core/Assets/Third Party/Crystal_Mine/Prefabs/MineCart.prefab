@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b573a9fd8c791554a903c6e952e69928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minecartCameraNumber: 0
-  cameraTarget: {fileID: 0}
+  minecartCameraNumber: 1
+  cameraTarget: {fileID: 778099042157844911}
   playerPositionTarget: {fileID: 408924556}
   playerExitPosition: {fileID: 8748052779281002279}
   getInUI: {fileID: 0}
@@ -401,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2751919982131019746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.5, z: -0.16}
+  m_LocalPosition: {x: 1.362, y: 0.5, z: -0.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4373968933739490}

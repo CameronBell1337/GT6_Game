@@ -99,10 +99,9 @@ public class TrackController : MonoBehaviour
         rotation.y = direction < 0 ? rotation.y - 180 : rotation.y;
         minecart.rotation = Quaternion.Euler(rotation);
 
-        player.transform.localPosition = Vector3.zero;
-        player.transform.localRotation = Quaternion.Euler(Vector3.zero);
-
         direction *= -1;
+
+        minecart.GetComponent<MinecartTrigger>().ejectPlayer();
     }
 
     private void MoveMinecart()

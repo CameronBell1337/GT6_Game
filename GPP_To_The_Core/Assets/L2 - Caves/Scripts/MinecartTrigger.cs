@@ -62,27 +62,15 @@ public class MinecartTrigger : MonoBehaviour
     {
         HandleUI();
 
-        if (Input.GetButtonDown("Action 2") && playerInRange && !trackController.active)
+        if (Input.GetButtonDown("Action 2") && playerInRange && !trackController.active && player.transform.parent == null)
         {
-            if (player.transform.parent == null)
-            {
-                trackController.active = true;
-                trackController.DisableColliders();
-                player.transform.position = playerPositionTarget.position;
-                player.transform.parent = transform;
-                player.GetComponent<PlayerInput>().canInput = false;
-                player.GetComponent<PlayerInput>().KillInput();
-                setCamera();
-            }
-            else
-            {
-                trackController.EnableColliders();
-                player.transform.parent = null;
-                player.transform.position = playerExitPosition.position;
-                player.GetComponent<PlayerInput>().canInput = true;
-
-                resetCamera();
-            }
+            trackController.active = true;
+            trackController.DisableColliders();
+            player.transform.position = playerPositionTarget.position;
+            player.transform.parent = transform;
+            player.GetComponent<PlayerInput>().canInput = false;
+            player.GetComponent<PlayerInput>().KillInput();
+            setCamera();
         }
 
         if (trackController.active)
@@ -169,5 +157,15 @@ public class MinecartTrigger : MonoBehaviour
     void resetCamera()
     {
         camManager.cutScene01Active = false;
+    }
+
+    public void ejectPlayer()
+    {
+        trackController.EnableColliders();
+        player.transform.parent = null;
+        player.transform.position = playerExitPosition.position;
+        player.GetComponent<PlayerInput>().canInput = true;
+
+        resetCamera();
     }
 }
